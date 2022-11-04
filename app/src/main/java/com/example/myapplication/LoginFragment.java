@@ -83,7 +83,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 String usr=user.getText().toString(),pass=password.getText().toString();
                 if (usr.isEmpty()||pass.isEmpty()){
-                    getActivity().hsaiheaihoasghewaih;oewa;ihfewqi
+
                 }
 
             }
