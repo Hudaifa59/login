@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserFrag">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="167dp"
+            android:layout_height="155dp"
+            android:src="@drawable/icon"
+            tools:layout_editor_absoluteX="122dp"
+            tools:layout_editor_absoluteY="87dp" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            tools:layout_editor_absoluteX="83dp"
+            tools:layout_editor_absoluteY="321dp" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            tools:layout_editor_absoluteX="83dp"
+            tools:layout_editor_absoluteY="423dp" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone"
+            tools:layout_editor_absoluteX="88dp"
+            tools:layout_editor_absoluteY="525dp" />
+
+        <Spinner
+            android:id="@+id/gender"
+            android:layout_width="186dp"
+            android:layout_height="55dp"
+            tools:layout_editor_absoluteX="103dp"
+            android:entries="@array/gender"
+            tools:layout_editor_absoluteY="628dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
