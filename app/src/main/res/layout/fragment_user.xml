@@ -11,49 +11,52 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/profileimage"
             android:layout_width="167dp"
             android:layout_height="155dp"
             android:src="@drawable/icon"
-            tools:layout_editor_absoluteX="122dp"
-            tools:layout_editor_absoluteY="87dp" />
+            android:onClick="Picturechoose"
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="74dp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/Username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="name...."
             android:inputType="textPersonName"
-            android:text="Name"
-            tools:layout_editor_absoluteX="83dp"
+            tools:layout_editor_absoluteX="100dp"
+            tools:layout_editor_absoluteY="257dp" />
+
+        <EditText
+            android:id="@+id/enickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="nickname"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="100dp"
             tools:layout_editor_absoluteY="321dp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/ephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#FFFF"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            tools:layout_editor_absoluteX="83dp"
-            tools:layout_editor_absoluteY="423dp" />
-
-        <EditText
-            android:id="@+id/editTextPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
+            android:hint="phone"
             android:inputType="phone"
-            tools:layout_editor_absoluteX="88dp"
-            tools:layout_editor_absoluteY="525dp" />
+            tools:layout_editor_absoluteX="100dp"
+            tools:layout_editor_absoluteY="400dp" />
 
         <Spinner
-            android:id="@+id/gender"
+            android:id="@+id/gendersp"
             android:layout_width="186dp"
             android:layout_height="55dp"
-            tools:layout_editor_absoluteX="103dp"
             android:entries="@array/gender"
-            tools:layout_editor_absoluteY="628dp" />
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="509dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

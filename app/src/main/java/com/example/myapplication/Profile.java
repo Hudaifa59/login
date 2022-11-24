@@ -3,14 +3,14 @@ package com.example.myapplication;
 import android.widget.ImageView;
 
 public class Profile {
-    private String description;
+    private String nickname;
     private String name;
     private String gender;
     private String phone;
     private ImageView image;
 
-    public Profile(String description, String name, String gender, String phone, ImageView image) {
-        this.description = description;
+    public Profile(String nickname, String name, String gender, String phone, ImageView image) {
+        this.nickname = nickname;
         this.name = name;
         this.gender = gender;
         this.phone = phone;
@@ -20,7 +20,7 @@ public class Profile {
     @Override
     public String toString() {
         return "Profile{" +
-                "description='" + description + '\'' +
+                "nickname='" + nickname + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phone='" + phone + '\'' +
@@ -28,12 +28,12 @@ public class Profile {
                 '}';
     }
 
-    public String getDescription() {
-        return description;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNickname(String description) {
+        this.nickname = description;
     }
 
     public String getName() {

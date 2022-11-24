@@ -101,21 +101,7 @@ public class LoginFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Profile book = new Profile();
-                                    Map<String, Profile> books= new HashMap<>();
 
-                                    fbs.getFire().collection("books").document("LA")
-                                            .set(book)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                }
-                                            });
                                 }
                                 else {
 
