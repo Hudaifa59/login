@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +37,7 @@ public class LoginFragment extends Fragment {
     private FirebaseServices fbs;
     private EditText user,password;
     private Button btn;
+    private TextView fp,su;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -91,6 +95,24 @@ public class LoginFragment extends Fragment {
         user=getView().findViewById(R.id.EmailLogin);
         password=getView().findViewById(R.id.PasswordLogin);
         btn=getView().findViewById(R.id.LoginMain);
+        fp=getView().findViewById(R.id.forgotPasswordtv);
+        su=getView().findViewById(R.id.Signuptv);
+        su.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SignUp nextFrag= new SignUp();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.framMain, nextFrag, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        fp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
