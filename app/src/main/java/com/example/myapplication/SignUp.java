@@ -75,6 +75,7 @@ public class SignUp extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sign_up, container, false);
     }
+
     public static boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -94,6 +95,7 @@ public class SignUp extends Fragment {
 
         return !TextUtils.isEmpty(s) && PASSWORD_PATTERN.matcher(s).matches();
     }
+
     private void Connectcom() {
         btn=getView().findViewById(R.id.btnsign);
         pass1=getView().findViewById(R.id.zeft);

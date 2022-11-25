@@ -100,11 +100,9 @@ public class LoginFragment extends Fragment {
         su.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SignUp nextFrag= new SignUp();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.framMain, nextFrag, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.framMain, new SignUp());
+                ft.commit();
             }
         });
         fp.setOnClickListener(new View.OnClickListener() {
