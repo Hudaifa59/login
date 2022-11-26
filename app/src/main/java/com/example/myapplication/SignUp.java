@@ -1,11 +1,14 @@
 package com.example.myapplication;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +19,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuth;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +30,7 @@ import java.util.regex.Pattern;
  * create an instance of this fragment.
  */
 public class SignUp extends Fragment {
-    private FirebaseServices fbs;
+    private FirebaseServices fbs=new FirebaseServices();
     private EditText pass1,pass2,user;
     private Button btn;
     // TODO: Rename parameter arguments, choose names that match
@@ -85,6 +89,10 @@ public class SignUp extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = fbs.getAuth().getCurrentUser();
+        updateUI(currentUser);
         Connectcom();
     }
 
@@ -97,9 +105,10 @@ public class SignUp extends Fragment {
     }
 
     private void Connectcom() {
+
         btn=getView().findViewById(R.id.btnsign);
-        pass1=getView().findViewById(R.id.zeft);
-        pass2=getView().findViewById(R.id.confirmzeft);
+        pass1=getView().findViewById(R.id.supassword);
+        pass2=getView().findViewById(R.id.Confirmsu);
         user=getView().findViewById(R.id.EtEmail);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +120,7 @@ public class SignUp extends Fragment {
                     Toast.makeText(getActivity(), "There is something missing", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!isEmailValid(pass))
+                if(!isEmailValid(usr))
                 {
                     Toast.makeText(getActivity(), "The Email is not valid!!", Toast.LENGTH_SHORT).show();
                     return;
@@ -126,15 +135,20 @@ public class SignUp extends Fragment {
                     Toast.makeText(getActivity(), "The passwords not matching!!", Toast.LENGTH_SHORT).show();
                 }
                 // login
-                fbs.getAuth().signInWithEmailAndPassword(usr, pass)
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                fbs.getAuth().createUserWithEmailAndPassword(usr, pass)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
-                                }
-                                else {
-
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "createUserWithEmail:success");
+                                    FirebaseUser user = fbs.getAuth().getCurrentUser();
+                                    fbs.getAuth().updateUI(user);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    Toast.makeText(getActivity(), "The passwords not matching!!", Toast.LENGTH_SHORT).show();
+                                    updateUI(null);
                                 }
                             }
                         });
