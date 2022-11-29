@@ -13,50 +13,72 @@
         <ImageView
             android:id="@+id/profileimage"
             android:layout_width="167dp"
-            android:layout_height="155dp"
-            android:src="@drawable/icon"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="74dp"
+            android:layout_marginBottom="28dp"
             android:onClick="Picturechoose"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="74dp" />
+            android:src="@drawable/icon"
+            app:layout_constraintBottom_toTopOf="@+id/Username"
+            app:layout_constraintStart_toStartOf="@+id/Username"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/Username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="19dp"
             android:ems="10"
             android:hint="name...."
             android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="100dp"
-            tools:layout_editor_absoluteY="257dp" />
+            app:layout_constraintBottom_toTopOf="@+id/enickname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileimage" />
 
         <EditText
             android:id="@+id/enickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="34dp"
             android:ems="10"
             android:hint="nickname"
             android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="100dp"
-            tools:layout_editor_absoluteY="321dp" />
+            app:layout_constraintBottom_toTopOf="@+id/ephone"
+            app:layout_constraintStart_toStartOf="@+id/Username"
+            app:layout_constraintTop_toBottomOf="@+id/Username" />
 
         <EditText
             android:id="@+id/ephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
             android:backgroundTint="#FFFF"
             android:ems="10"
             android:hint="phone"
             android:inputType="phone"
-            tools:layout_editor_absoluteX="100dp"
-            tools:layout_editor_absoluteY="400dp" />
+            app:layout_constraintBottom_toTopOf="@+id/gendersp"
+            app:layout_constraintStart_toStartOf="@+id/enickname"
+            app:layout_constraintTop_toBottomOf="@+id/enickname" />
 
         <Spinner
             android:id="@+id/gendersp"
             android:layout_width="186dp"
-            android:layout_height="55dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="167dp"
             android:entries="@array/gender"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="509dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ephone" />
+
+        <Button
+            android:id="@+id/Done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            tools:layout_editor_absoluteX="160dp"
+            tools:layout_editor_absoluteY="607dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

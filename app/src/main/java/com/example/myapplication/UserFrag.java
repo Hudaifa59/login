@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -19,12 +20,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +40,9 @@ import java.io.IOException;
  */
 public class UserFrag extends Fragment {
 
+    private Profile pf;
+    private FirebaseServices fbs;
+    private Button btndone;
     private ImageView imgp;
     private EditText ename,enick,ephone;
     private Spinner gender;
@@ -91,6 +101,8 @@ public class UserFrag extends Fragment {
     }
 
     private void connectcomp() {
+        fbs=FirebaseServices.getInstance();
+        btndone=getView().findViewById(R.id.Done);
         imgp = getView().findViewById(R.id.profileimage);
         ename = getView().findViewById(R.id.Username);
         enick = getView().findViewById(R.id.enickname);
@@ -101,8 +113,27 @@ public class UserFrag extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 3);
-
-
+            }
+        });
+        btndone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(), ephone.getText().toString(),imgp);
+                Map<String, Profile> profiles= new HashMap<>();
+                fbs.getFire().collection("Profile").document("LA")
+                        .set(pf)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                //Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                //Log.w(TAG, "Error writing document", e);
+                            }
+                        });
             }
         });
 

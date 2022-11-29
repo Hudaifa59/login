@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,7 +31,7 @@ import java.util.regex.Pattern;
  * create an instance of this fragment.
  */
 public class SignUp extends Fragment {
-    private FirebaseServices fbs=new FirebaseServices();
+    private FirebaseServices fbs;
     private EditText pass1,pass2,user;
     private Button btn;
     // TODO: Rename parameter arguments, choose names that match
@@ -89,10 +90,6 @@ public class SignUp extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = fbs.getAuth().getCurrentUser();
-        updateUI(currentUser);
         Connectcom();
     }
 
@@ -105,7 +102,7 @@ public class SignUp extends Fragment {
     }
 
     private void Connectcom() {
-
+        fbs=FirebaseServices.getInstance();
         btn=getView().findViewById(R.id.btnsign);
         pass1=getView().findViewById(R.id.supassword);
         pass2=getView().findViewById(R.id.Confirmsu);
@@ -136,19 +133,15 @@ public class SignUp extends Fragment {
                 }
                 // login
                 fbs.getAuth().createUserWithEmailAndPassword(usr, pass)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "createUserWithEmail:success");
-                                    FirebaseUser user = fbs.getAuth().getCurrentUser();
-                                    fbs.getAuth().updateUI(user);
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.framMain, new UserFrag());
+                                    ft.commit();
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(getActivity(), "The passwords not matching!!", Toast.LENGTH_SHORT).show();
-                                    updateUI(null);
+                                    Toast.makeText(getActivity(), "The Email is already used!!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
