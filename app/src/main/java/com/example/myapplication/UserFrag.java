@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -118,7 +119,14 @@ public class UserFrag extends Fragment {
         btndone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(), ephone.getText().toString(),imgp);
+                String phone=ephone.getText().toString();
+                if (enick.getText().toString().isEmpty() || ename.getText().toString().isEmpty() || gender.getSelectedItem().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), "There are some fields missing", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (ephone.getText().toString().isEmpty())
+                    phone="";
+                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,imgp);
                 Map<String, Profile> profiles= new HashMap<>();
                 fbs.getFire().collection("Profile").document("LA")
                         .set(pf)

@@ -16,10 +16,10 @@
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="74dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="427dp"
             android:onClick="Picturechoose"
             android:src="@drawable/icon"
-            app:layout_constraintBottom_toTopOf="@+id/Username"
+            app:layout_constraintBottom_toTopOf="@+id/Done"
             app:layout_constraintStart_toStartOf="@+id/Username"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +64,7 @@
         <Spinner
             android:id="@+id/gendersp"
             android:layout_width="186dp"
-            android:layout_height="0dp"
+            android:layout_height="71dp"
             android:layout_marginBottom="167dp"
             android:entries="@array/gender"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -76,9 +76,12 @@
             android:id="@+id/Done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="76dp"
             android:text="Done"
-            tools:layout_editor_absoluteX="160dp"
-            tools:layout_editor_absoluteY="607dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileimage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -14,7 +14,7 @@
             android:id="@+id/LoginMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="54dp"
+            android:layout_marginTop="55dp"
             android:text="Login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,10 +65,11 @@
             android:id="@+id/forgotPasswordtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Forgot Password"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            android:layout_marginStart="3dp"
+            android:text="Forgot password "
+            android:textColor="#000000"
             app:layout_constraintStart_toStartOf="@+id/PasswordLogin"
             app:layout_constraintTop_toBottomOf="@+id/PasswordLogin" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +32,7 @@ import java.util.regex.Pattern;
  * create an instance of this fragment.
  */
 public class SignUp extends Fragment {
+    private ImageView img;
     private FirebaseServices fbs;
     private EditText pass1,pass2,user;
     private Button btn;
@@ -102,11 +104,20 @@ public class SignUp extends Fragment {
     }
 
     private void Connectcom() {
+        img=getView().findViewById(R.id.bactoLogin);
         fbs=FirebaseServices.getInstance();
         btn=getView().findViewById(R.id.btnsign);
         pass1=getView().findViewById(R.id.supassword);
         pass2=getView().findViewById(R.id.Confirmsu);
         user=getView().findViewById(R.id.EtEmail);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.framMain, new LoginFragment());
+                ft.commit();
+            }
+        });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
