@@ -7,14 +7,14 @@ public class Profile {
     private String name;
     private String gender;
     private String phone;
-    private ImageView image;
 
-    public Profile(String nickname, String name, String gender, String phone, ImageView image) {
+
+    public Profile(String nickname, String name, String gender, String phone) {
         this.nickname = nickname;
         this.name = name;
         this.gender = gender;
         this.phone = phone;
-        this.image = image;
+
     }
 
     @Override
@@ -24,7 +24,6 @@ public class Profile {
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phone='" + phone + '\'' +
-                ", image=" + image +
                 '}';
     }
 
@@ -58,13 +57,5 @@ public class Profile {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public ImageView getImage() {
-        return image;
-    }
-
-    public void setImage(ImageView image) {
-        this.image = image;
     }
 }
