@@ -4,9 +4,12 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.app.appsearch.StorageInfo;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -30,13 +33,17 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Node;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +52,7 @@ import java.util.Map;
  */
 public class UserFrag extends Fragment {
 
+    private Bitmap Image;
     private Profile pf;
     private FirebaseServices fbs;
     private Button btndone;
@@ -138,6 +146,7 @@ public class UserFrag extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
+                                UploadImageToFirebase();
                                 Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                             }
                         })
@@ -153,6 +162,27 @@ public class UserFrag extends Fragment {
 
     }
 
+    private String UploadImageToFirebase(){
+        BitmapDrawable drawable = (BitmapDrawable) imgp.getDrawable();
+        Image = drawable.getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Image.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[]data= baos.toByteArray();
+        StorageReference ref =fbs.getStorage().getReference("listingPictures/"+ UUID.randomUUID().toString());
+        UploadTask uploadTask =ref.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });
+        return ref.getPath();
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
