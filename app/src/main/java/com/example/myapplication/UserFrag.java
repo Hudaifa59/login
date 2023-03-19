@@ -3,20 +3,13 @@ package com.example.myapplication;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
-import android.app.Activity;
-import android.app.appsearch.StorageInfo;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -36,14 +29,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.w3c.dom.Node;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import users.FirebaseServices;
+import users.Profile;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -138,7 +130,7 @@ public class UserFrag extends Fragment {
                 }
                 if (ephone.getText().toString().isEmpty())
                     phone="";
-                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone);
+                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,imgp.toString());
                 Map<String,Profile> Profiles = new HashMap<>();
                 Profiles.put("profile",pf);
                 fbs.getFire().collection("Profiles")

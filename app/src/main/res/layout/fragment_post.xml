@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Post">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="324dp"
+            android:layout_height="322dp"
+            tools:layout_editor_absoluteX="-1dp"
+            tools:layout_editor_absoluteY="51dp"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="56dp"
+            tools:layout_editor_absoluteY="13dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="38dp"
+            android:layout_height="37dp"
+            tools:layout_editor_absoluteX="7dp"
+            tools:layout_editor_absoluteY="4dp"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="33dp"
+            android:layout_height="32dp"
+            android:src="@drawable/heart"
+            tools:layout_editor_absoluteX="7dp"
+            tools:layout_editor_absoluteY="376dp" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="33dp"
+            android:layout_height="32dp"
+            android:src="@drawable/comment"
+            tools:layout_editor_absoluteX="45dp"
+            tools:layout_editor_absoluteY="376dp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="31dp"
+            android:layout_height="30dp"
+            android:src="@drawable/share"
+            tools:layout_editor_absoluteX="83dp"
+            tools:layout_editor_absoluteY="376dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
