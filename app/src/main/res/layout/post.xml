@@ -10,74 +10,110 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="414dp"
-            android:layout_height="403dp"
-            tools:layout_editor_absoluteX="-2dp"
-            tools:layout_editor_absoluteY="108dp"
+            android:id="@+id/ivpost"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="77dp"
+            android:layout_marginBottom="63dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCaption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivpostuser"
             tools:srcCompat="@tools:sample/avatars" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/ivpostuser"
             android:layout_width="70dp"
             android:layout_height="59dp"
-            app:srcCompat="@drawable/icon"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="31dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="31dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvpostuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginBottom="16dp"
             android:text="TextView"
-            tools:layout_editor_absoluteX="119dp"
-            tools:layout_editor_absoluteY="55dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/ivpostuser"
+            app:layout_constraintStart_toEndOf="@+id/ivpostuser" />
 
         <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="60dp"
-            android:layout_height="54dp"
-            app:srcCompat="@drawable/heart"
-            tools:layout_editor_absoluteX="-2dp"
-            tools:layout_editor_absoluteY="511dp" />
+            android:id="@+id/ivlikepost"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="68dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvlikespost"
+            app:layout_constraintEnd_toStartOf="@+id/ivsharepost"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivcommentpost"
+            app:srcCompat="@drawable/heart" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/ivcommentpost"
             android:layout_width="68dp"
-            android:layout_height="54dp"
-            app:srcCompat="@drawable/comment"
-            tools:layout_editor_absoluteX="58dp"
-            tools:layout_editor_absoluteY="511dp" />
+            android:layout_height="0dp"
+            android:layout_marginStart="59dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="59dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvcommentspost"
+            app:layout_constraintEnd_toEndOf="@+id/tvsharepost"
+            app:layout_constraintStart_toStartOf="@+id/ivlikepost"
+            app:layout_constraintTop_toBottomOf="@+id/tvCaption"
+            app:srcCompat="@drawable/comment" />
 
         <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="57dp"
-            android:layout_height="53dp"
-            app:srcCompat="@drawable/share"
-            tools:layout_editor_absoluteX="128dp"
-            tools:layout_editor_absoluteY="511dp" />
+            android:id="@+id/ivsharepost"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="225dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvsharepost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivlikepost"
+            app:layout_constraintTop_toTopOf="@+id/ivcommentpost"
+            app:srcCompat="@drawable/share" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvlikespost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="78dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ivlikepost"
+            app:layout_constraintTop_toBottomOf="@+id/tvCaption" />
+
+        <TextView
+            android:id="@+id/tvcommentspost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            tools:layout_editor_absoluteY="561dp" />
+            app:layout_constraintStart_toEndOf="@+id/ivlikepost"
+            app:layout_constraintTop_toTopOf="@+id/tvlikespost" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvsharepost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            tools:layout_editor_absoluteX="61dp"
-            tools:layout_editor_absoluteY="561dp" />
+            app:layout_constraintStart_toStartOf="@+id/ivsharepost"
+            app:layout_constraintTop_toBottomOf="@+id/ivcommentpost" />
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/tvCaption"
+            android:layout_width="0dp"
+            android:layout_height="59dp"
+            android:layout_marginBottom="157dp"
             android:text="TextView"
-            tools:layout_editor_absoluteX="128dp"
-            tools:layout_editor_absoluteY="561dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
