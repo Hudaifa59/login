@@ -11,34 +11,33 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
     Context context;
     ArrayList<Post> postArrayList;
 
-    public MyAdapter(Context context, ArrayList<Post> postArrayList) {
+    public PostAdapter(Context context, ArrayList<Post> postArrayList) {
         this.context = context;
         this.postArrayList = postArrayList;
     }
 
     @NonNull
     @Override
-    public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PostAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(context).inflate(R.layout.post,parent,false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostAdapter.MyViewHolder holder, int position) {
 
         Post post=postArrayList.get(position);
 
-        holder.
+        //
     }
 
     @Override
@@ -49,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         private ImageView post;
         private ImageView user,comments,likes,shares;
-        private TextView comment,like,share,username;
+        private TextView comment,like,share,username,caption;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,6 +61,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             share=itemView.findViewById(R.id.tvsharepost);
             like=itemView.findViewById(R.id.tvlikespost);
             comment=itemView.findViewById(R.id.tvcommentspost);
+            caption=itemView.findViewById(R.id.tvCaption);
         }
     }
 }
