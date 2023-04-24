@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -130,7 +131,9 @@ public class UserFrag extends Fragment {
                 }
                 if (ephone.getText().toString().isEmpty())
                     phone="";
-                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,imgp.toString());
+                String path=UploadImageToFirebase();
+                if(path==null)return;
+                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,path);
                 Map<String,Profile> Profiles = new HashMap<>();
                 Profiles.put("profile",pf);
                 fbs.getFire().collection("Profiles")
@@ -138,8 +141,11 @@ public class UserFrag extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                UploadImageToFirebase();
+
                                 Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                ft.replace(R.id.framMain, new Profiles());
+                                ft.commit();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -165,12 +171,11 @@ public class UserFrag extends Fragment {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                Log.w(TAG, "Error with the picture", e);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
             }
         });
         return ref.getPath();
