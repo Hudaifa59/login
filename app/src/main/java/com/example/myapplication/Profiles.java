@@ -1,12 +1,32 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import users.FirebaseServices;
+import users.Profile;
+import users.ProfileAdapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +34,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Profiles extends Fragment {
+    private RecyclerView recyclerViewprofile;
+    ArrayList<Profile> profileArrayList;
+    ProfileAdapter profileAdapter;
+    FirebaseServices fbs;
+    private ProgressDialog progressDialog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,4 +86,82 @@ public class Profiles extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profiles, container, false);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+/*
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching data....");
+        progressDialog.show();
+*/
+        recyclerViewprofile=getActivity().findViewById(R.id.profiles);
+        recyclerViewprofile.setHasFixedSize(true);
+        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        fbs=FirebaseServices.getInstance();
+        profileArrayList=new ArrayList<Profile>();
+        profileAdapter=new ProfileAdapter(getActivity(),profileArrayList);
+        recyclerViewprofile.setAdapter(profileAdapter);
+        EventChangeListener();
+    }
+
+    private void EventChangeListener() {
+        fbs.getFire().collection("profile").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Profile profile = document.toObject(Profile.class);
+                        profileArrayList.add(profile);
+                    }
+
+                    profileAdapter = new ProfileAdapter(getActivity(), profileArrayList);
+                    recyclerViewprofile.setAdapter(profileAdapter);
+
+                // TODO: fill data in recycler
+            }
+        }});
+
+
+    }
 }
+
+/*
+        fbs.getFire().collection("profile").orderBy("name", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                //progressDialog = new ProgressDialog(getActivity());
+                //progressDialog.setCancelable(false);
+                //progressDialog.setMessage("Fetching data....");
+                //progressDialog.show();
+
+                if (error!=null){
+
+                    //if (progressDialog.isShowing())
+                        //progressDialog.dismiss();
+
+                    Log.e("FireStore error",error.getMessage());
+                    return;
+                }
+
+                for (DocumentChange dc : value.getDocumentChanges()){
+
+                    if (dc.getType()==DocumentChange.Type.ADDED){
+
+                        profileArrayList.add(dc.getDocument().toObject(Profile.class));
+
+                    }
+
+                    profileAdapter.notifyDataSetChanged();
+
+                    //if (progressDialog.isShowing())
+                        //progressDialog.dismiss();
+
+
+
+                }
+            }
+        });*/

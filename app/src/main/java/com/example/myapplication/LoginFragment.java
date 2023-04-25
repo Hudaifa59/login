@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
 import users.FirebaseServices;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,6 +93,7 @@ public class LoginFragment extends Fragment {
         btn=getView().findViewById(R.id.LoginMain);
         fp=getView().findViewById(R.id.forgotPasswordtv);
         su=getView().findViewById(R.id.Signuptv);
+        fbs = FirebaseServices.getInstance();
         fp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,10 +125,12 @@ public class LoginFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.framMain, new Profiles());
+                                    ft.commit();
                                 }
                                 else {
-
+                                    return;
                                 }
                             }
                         });

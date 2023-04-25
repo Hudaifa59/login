@@ -43,13 +43,13 @@ public class ProfileAdapter extends RecyclerView.Adapter<users.ProfileAdapter.My
 
             Profile profile=profileArrayList.get(position);
             fbs =FirebaseServices.getInstance();
-            fbs.getStorage().getReference("listingPictures/"+ profile.getImage()).getBytes(5000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+            fbs.getStorage().getReference("listingPictures/"+ profile.getImage()).getBytes(50000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
                 if (task.isSuccessful()){
                     Bitmap bitmap = BitmapFactory.decodeByteArray(task.getResult(), 0, task.getResult().length);
-                    listingPicture.setImageBitmap(bitmap);
-                    listingPicture.setRotation(90);
+                    holder.profilepic.setImageBitmap(bitmap);
+                    holder.profilepic.setRotation(90);
                 }
                 else{
                     Log.d("Download Image:", task.getException().toString());

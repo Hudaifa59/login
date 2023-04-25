@@ -10,37 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/profileimage"
-            android:layout_width="167dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="74dp"
-            android:layout_marginBottom="427dp"
-            android:onClick="Picturechoose"
-            android:src="@drawable/icon"
-            app:layout_constraintBottom_toTopOf="@+id/Done"
-            app:layout_constraintStart_toStartOf="@+id/Username"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/Username"
+        <Button
+            android:id="@+id/Done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="19dp"
-            android:ems="10"
-            android:hint="name...."
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/enickname"
+            android:layout_marginBottom="196dp"
+            android:text="Done"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileimage" />
+            app:layout_constraintTop_toBottomOf="@+id/gendersp" />
 
         <EditText
             android:id="@+id/enickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="34dp"
+            android:layout_marginBottom="46dp"
             android:ems="10"
             android:hint="nickname"
             android:inputType="textPersonName"
@@ -52,7 +37,7 @@
             android:id="@+id/ephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="28dp"
             android:backgroundTint="#FFFF"
             android:ems="10"
             android:hint="phone"
@@ -61,27 +46,42 @@
             app:layout_constraintStart_toStartOf="@+id/enickname"
             app:layout_constraintTop_toBottomOf="@+id/enickname" />
 
-        <Spinner
-            android:id="@+id/gendersp"
-            android:layout_width="186dp"
-            android:layout_height="71dp"
-            android:layout_marginBottom="167dp"
-            android:entries="@array/gender"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ephone" />
-
-        <Button
-            android:id="@+id/Done"
+        <EditText
+            android:id="@+id/Username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="76dp"
-            android:text="Done"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="32dp"
+            android:ems="10"
+            android:hint="name...."
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/enickname"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileimage" />
+
+        <ImageView
+            android:id="@+id/profileimage"
+            android:layout_width="167dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="33dp"
+            android:onClick="Picturechoose"
+            android:src="@drawable/icon"
+            app:layout_constraintBottom_toTopOf="@+id/Username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/gendersp"
+            android:layout_width="186dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:entries="@array/gender"
+            app:layout_constraintBottom_toTopOf="@+id/Done"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ephone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

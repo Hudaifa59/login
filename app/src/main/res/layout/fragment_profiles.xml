@@ -6,6 +6,7 @@
     tools:context=".Profiles">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profiles"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>
