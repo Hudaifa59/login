@@ -18,71 +18,72 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class ProfileAdapter extends RecyclerView.Adapter<users.ProfileAdapter.MyViewHolder> {
+public class  ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
+    private Bitmap bitmap1;
+    private FirebaseServices fbs;
+    private List<Profile> data;
 
-        Context context;
-        ArrayList<Profile> profileArrayList;
-        private FirebaseServices fbs;
+    public ProfileAdapter(List<Profile> data) {
+        this.data = data;
+    }
 
-        public ProfileAdapter(Context context, ArrayList<Profile> profileArrayList) {
-            this.context = context;
-            this.profileArrayList = profileArrayList;
-        }
+    public void setData(List<Profile> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
 
-        @NonNull
-        @Override
-        public users.ProfileAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            View v = LayoutInflater.from(context).inflate(R.layout.post, parent, false);
-            return new MyViewHolder(v);
-        }
     @Override
-    public void onBindViewHolder(@NonNull ProfileAdapter.MyViewHolder holder, int position) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile, parent, false);
+        return new ViewHolder(view);
+    }
 
-            Profile profile=profileArrayList.get(position);
-            fbs =FirebaseServices.getInstance();
-            fbs.getStorage().getReference("listingPictures/"+ profile.getImage()).getBytes(50000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Profile profile=data.get(position);
+        fbs =FirebaseServices.getInstance();
+        fbs.getStorage().getReference(profile.getImage()).getBytes(50000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
                 if (task.isSuccessful()){
                     Bitmap bitmap = BitmapFactory.decodeByteArray(task.getResult(), 0, task.getResult().length);
-                    holder.profilepic.setImageBitmap(bitmap);
-                    holder.profilepic.setRotation(90);
+                    bitmap1=bitmap;
                 }
                 else{
                     Log.d("Download Image:", task.getException().toString());
                 }
             }
-            });
-            holder.nickname.setText(profile.getNickname());
-            holder.phone.setText(profile.getPhone());
-            holder.name.setText(profile.getName());
-            holder.gender.setText(profile.getGender());
-            holder.post.setText(profile.getPosts());
-        }
-
-        @Override
-        public int getItemCount() {
-            return profileArrayList.size();
-        }
-        public static class MyViewHolder extends RecyclerView.ViewHolder{
-
-            TextView nickname,name,gender,phone,post;
-            ImageView profilepic;
-            public MyViewHolder(@NonNull View itemView) {
-                super(itemView);
-                nickname=itemView.findViewById(R.id.nicknameadap);
-                name=itemView.findViewById(R.id.nameadap);
-                gender=itemView.findViewById(R.id.genderadap);
-                phone=itemView.findViewById(R.id.phoneadap);
-                post=itemView.findViewById(R.id.postadap);
-                profilepic=itemView.findViewById(R.id.profileadap);
-
-            }
-        }
+        });
+        holder.profilepic.setImageBitmap(bitmap1);
+        holder.profilepic.setRotation(90);
+        holder.nickname.setText(profile.getNickname());
+        holder.phone.setText(profile.getPhone());
+        holder.name.setText(profile.getName());
+        holder.gender.setText(profile.getGender());
+        holder.post.setText(profile.getPosts());
     }
 
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nickname,name,gender,phone,post;
+        ImageView profilepic;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            nickname=itemView.findViewById(R.id.nicknameadap);
+            name=itemView.findViewById(R.id.nameadap);
+            gender=itemView.findViewById(R.id.genderadap);
+            phone=itemView.findViewById(R.id.phoneadap);
+            post=itemView.findViewById(R.id.postadap);
+            profilepic=itemView.findViewById(R.id.profileadap);
+        }
+    }
+}
 

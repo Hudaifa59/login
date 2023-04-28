@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
@@ -17,16 +19,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,8 +33,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Profiles extends Fragment {
+    private List<Profile> profileList;
+
     private RecyclerView recyclerViewprofile;
-    ArrayList<Profile> profileArrayList;
     ProfileAdapter profileAdapter;
     FirebaseServices fbs;
     private ProgressDialog progressDialog;
@@ -86,7 +86,18 @@ public class Profiles extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profiles, container, false);
     }
+/*    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        recyclerViewprofile = view.findViewById(R.id.recycleprofile);
+        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getActivity()));
+        profileAdapter = new ProfileAdapter(new ArrayList<>());
+        recyclerViewprofile.setAdapter(profileAdapter);
+        EventChangeListener();
+    }/*
+
+ */
     @Override
     public void onStart() {
         super.onStart();
@@ -95,53 +106,62 @@ public class Profiles extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching data....");
         progressDialog.show();
-*/
+
         recyclerViewprofile=getActivity().findViewById(R.id.profiles);
         recyclerViewprofile.setHasFixedSize(true);
-        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         fbs=FirebaseServices.getInstance();
         profileArrayList=new ArrayList<Profile>();
-        profileAdapter=new ProfileAdapter(getActivity(),profileArrayList);
+        profileAdapter=new ProfileAdapter(profileArrayList);
         recyclerViewprofile.setAdapter(profileAdapter);
+        EventChangeListener();
+        */
+        recyclerViewprofile = getActivity().findViewById(R.id.recycleprofile);
+        recyclerViewprofile.setHasFixedSize(true);
+        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getActivity()));
+        profileAdapter = new ProfileAdapter(new ArrayList<>());
+        recyclerViewprofile.setAdapter(profileAdapter);
+        fbs=FirebaseServices.getInstance();
         EventChangeListener();
     }
 
     private void EventChangeListener() {
-        fbs.getFire().collection("profile").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Profile profile = document.toObject(Profile.class);
-                        profileArrayList.add(profile);
+        fbs.getFire().collection("Profiles")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        profileList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            Profile profile = document.toObject(Profile.class);
+                            profileList.add(profile);
+                        }
+
+                        // Create adapter and set it to RecyclerView
+                        profileAdapter = new ProfileAdapter(profileList);
+                        recyclerViewprofile.setAdapter(profileAdapter);
                     }
-
-                    profileAdapter = new ProfileAdapter(getActivity(), profileArrayList);
-                    recyclerViewprofile.setAdapter(profileAdapter);
-
-                // TODO: fill data in recycler
-            }
-        }});
+                });
 
 
     }
 }
-
 /*
-        fbs.getFire().collection("profile").orderBy("name", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+           fbs.getFire().collection("Profiles").orderBy("name", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                //progressDialog = new ProgressDialog(getActivity());
-                //progressDialog.setCancelable(false);
-                //progressDialog.setMessage("Fetching data....");
-                //progressDialog.show();
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("Fetching data....");
+                progressDialog.show();
 
                 if (error!=null){
 
-                    //if (progressDialog.isShowing())
-                        //progressDialog.dismiss();
+                    if (progressDialog.isShowing())
+                    progressDialog.dismiss();
 
                     Log.e("FireStore error",error.getMessage());
                     return;
@@ -156,12 +176,12 @@ public class Profiles extends Fragment {
                     }
 
                     profileAdapter.notifyDataSetChanged();
-
-                    //if (progressDialog.isShowing())
-                        //progressDialog.dismiss();
+                    if (progressDialog.isShowing())
+                    progressDialog.dismiss();
 
 
 
                 }
             }
-        });*/
+        });
+*/
