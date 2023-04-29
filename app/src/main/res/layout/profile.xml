@@ -16,51 +16,65 @@
 
             <ImageView
                 android:id="@+id/profileadap"
-                android:layout_width="411dp"
+                android:layout_width="0dp"
                 android:layout_height="434dp"
-                tools:layout_editor_absoluteX="-1dp"
-                tools:layout_editor_absoluteY="106dp"
+                android:layout_marginTop="33dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneadap"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/nicknameadap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="7dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="75dp"
-                tools:layout_editor_absoluteY="53dp" />
+                app:layout_constraintEnd_toStartOf="@+id/genderadap"
+                app:layout_constraintTop_toBottomOf="@+id/genderadap" />
 
             <TextView
                 android:id="@+id/nameadap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="51dp"
+                android:layout_marginTop="16dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="51dp"
-                tools:layout_editor_absoluteY="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/genderadap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="89dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="88dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="140dp"
-                tools:layout_editor_absoluteY="20dp" />
+                app:layout_constraintEnd_toEndOf="@+id/postadap"
+                app:layout_constraintStart_toStartOf="@+id/nameadap"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/phoneadap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="182dp"
-                tools:layout_editor_absoluteY="54dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genderadap" />
 
             <TextView
                 android:id="@+id/postadap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="46dp"
+                android:layout_marginTop="20dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="228dp"
-                tools:layout_editor_absoluteY="20dp" />
+                app:layout_constraintStart_toStartOf="@+id/phoneadap"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

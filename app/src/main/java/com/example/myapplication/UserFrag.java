@@ -35,8 +35,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import users.FirebaseServices;
-import users.Profile;
+import com.example.users.FirebaseServices;
+import com.example.users.Profile;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -133,11 +133,11 @@ public class UserFrag extends Fragment {
                     phone="";
                 String path=UploadImageToFirebase();
                 if(path==null)return;
-                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,path);
-                Map<String,Profile> Profiles = new HashMap<>();
-                Profiles.put("profile",pf);
+                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,path,0);
+                //Map<String,Profile> Profiles = new HashMap<>();
+                //Profiles.put("profile",pf);
                 fbs.getFire().collection("Profiles")
-                        .add(Profiles)
+                        .add(pf)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {

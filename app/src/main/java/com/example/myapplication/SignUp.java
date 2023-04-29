@@ -22,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import users.FirebaseServices;
+import com.example.users.FirebaseServices;
 
 /**
  * A simple {@link Fragment} subclass.

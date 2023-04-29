@@ -1,25 +1,20 @@
 package com.example.myapplication;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import users.FirebaseServices;
-import users.Profile;
-import users.ProfileAdapter;
+import com.example.users.FirebaseServices;
+import com.example.users.Profile;
+import com.example.users.ProfileAdapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -33,7 +28,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class Profiles extends Fragment {
-    private List<Profile> profileList;
+    private ArrayList<Profile> profileList;
 
     private RecyclerView recyclerViewprofile;
     ProfileAdapter profileAdapter;
@@ -128,14 +123,19 @@ public class Profiles extends Fragment {
 
     private void EventChangeListener() {
         fbs.getFire().collection("Profiles")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        profileList = new ArrayList<>();
+                        profileList = new ArrayList<Profile>();
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            Profile profile = document.toObject(Profile.class);
-                            profileList.add(profile);
+                            try {
+                                Profile profile = document.toObject(Profile.class);
+                                profileList.add(profile);
+                            }
+                            catch (Exception ex)
+                            {
+                                Log.e("GetData: ", ex.getMessage());
+                            }
                         }
 
                         // Create adapter and set it to RecyclerView

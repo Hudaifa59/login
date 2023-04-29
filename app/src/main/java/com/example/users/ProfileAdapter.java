@@ -1,6 +1,5 @@
-package users;
+package com.example.users;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -19,7 +18,6 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class  ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
     private Bitmap bitmap1;
@@ -45,6 +43,7 @@ public class  ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHol
     public void onBindViewHolder(ViewHolder holder, int position) {
         Profile profile=data.get(position);
         fbs =FirebaseServices.getInstance();
+        /*
         fbs.getStorage().getReference(profile.getImage()).getBytes(50000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
@@ -58,12 +57,12 @@ public class  ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHol
             }
         });
         holder.profilepic.setImageBitmap(bitmap1);
-        holder.profilepic.setRotation(90);
+        holder.profilepic.setRotation(90); */
         holder.nickname.setText(profile.getNickname());
         holder.phone.setText(profile.getPhone());
         holder.name.setText(profile.getName());
         holder.gender.setText(profile.getGender());
-        holder.post.setText(profile.getPosts());
+        holder.post.setText(String.valueOf(profile.getPosts()));
     }
 
     @Override

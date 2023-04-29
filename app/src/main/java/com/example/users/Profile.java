@@ -1,4 +1,4 @@
-package users;
+package com.example.users;
 
 import android.widget.ImageView;
 
@@ -10,34 +10,24 @@ public class Profile {
     private String image;
     private int posts;
 
+    public Profile() {
+    }
 
-    public Profile(String nickname, String name, String gender, String phone,String image) {
+    public Profile(String nickname, String name, String gender, String phone, String image, int posts) {
         this.nickname = nickname;
         this.name = name;
         this.gender = gender;
         this.phone = phone;
-        this.image=image;
-        this.posts=0;
-    }
-
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "nickname='" + nickname + '\'' +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", phone='" + phone + '\'' +
-                ", image='" + image + '\'' +
-                ", posts=" + posts +
-                '}';
+        this.image = image;
+        this.posts = posts;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String description) {
-        this.nickname = description;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getName() {
@@ -59,21 +49,36 @@ public class Profile {
     public String getPhone() {
         return phone;
     }
-    public String getImage() {
-        return image;
-    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public String getImage() {
+        return image;
+    }
+
     public void setImage(String image) {
-        this.phone = image;
+        this.image = image;
+    }
+
+    public int getPosts() {
+        return posts;
     }
 
     public void setPosts(int posts) {
         this.posts = posts;
     }
 
-    public int getPosts() {
-        return posts;
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "nickname='" + nickname + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                ", image='" + image + '\'' +
+                ", posts=" + posts +
+                '}';
     }
 }
