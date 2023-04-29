@@ -1,7 +1,13 @@
 package com.example.users;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +33,10 @@ public class  ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHol
     private FirebaseServices fbs;
     private List<Profile> data;
 
-    public ProfileAdapter(List<Profile> data) {
+    private Context context;
+    public ProfileAdapter(List<Profile> data,Context context) {
         this.data = data;
+        this.context=context;
     }
 
     public void setData(List<Profile> data) {
@@ -43,21 +54,22 @@ public class  ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHol
     public void onBindViewHolder(ViewHolder holder, int position) {
         Profile profile=data.get(position);
         fbs =FirebaseServices.getInstance();
-        /*
-        fbs.getStorage().getReference(profile.getImage()).getBytes(50000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+
+        StorageReference storageRef= fbs.getStorage().getInstance().getReference().child(profile.getImage());
+
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onComplete(@NonNull Task<byte[]> task) {
-                if (task.isSuccessful()){
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(task.getResult(), 0, task.getResult().length);
-                    bitmap1=bitmap;
-                }
-                else{
-                    Log.d("Download Image:", task.getException().toString());
-                }
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri)
+                        .into(holder.profilepic);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Handle any errors that occur when downloading the image
             }
         });
-        holder.profilepic.setImageBitmap(bitmap1);
-        holder.profilepic.setRotation(90); */
         holder.nickname.setText(profile.getNickname());
         holder.phone.setText(profile.getPhone());
         holder.name.setText(profile.getName());

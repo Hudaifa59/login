@@ -115,7 +115,7 @@ public class Profiles extends Fragment {
         recyclerViewprofile = getActivity().findViewById(R.id.recycleprofile);
         recyclerViewprofile.setHasFixedSize(true);
         recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getActivity()));
-        profileAdapter = new ProfileAdapter(new ArrayList<>());
+        profileAdapter = new ProfileAdapter(new ArrayList<>(),getActivity());
         recyclerViewprofile.setAdapter(profileAdapter);
         fbs=FirebaseServices.getInstance();
         EventChangeListener();
@@ -139,7 +139,7 @@ public class Profiles extends Fragment {
                         }
 
                         // Create adapter and set it to RecyclerView
-                        profileAdapter = new ProfileAdapter(profileList);
+                        profileAdapter = new ProfileAdapter(profileList,getActivity());
                         recyclerViewprofile.setAdapter(profileAdapter);
                     }
                 });
