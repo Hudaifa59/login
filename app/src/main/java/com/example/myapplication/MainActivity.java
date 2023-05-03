@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private void connectcommponents() {
         fm=findViewById(R.id.framMain);
-
     }
 
 }
