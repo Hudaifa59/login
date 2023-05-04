@@ -142,8 +142,6 @@ public class Profiles extends Fragment {
                         recyclerViewprofile.setAdapter(profileAdapter);
                     }
                 });
-
-
     }
 }
 /*

@@ -142,8 +142,7 @@ public class UserFrag extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-
-                                pfpath=documentReference.getId();
+                                pfpath=documentReference.getId().toString();
                                 Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
                             }
@@ -154,7 +153,7 @@ public class UserFrag extends Fragment {
                                 Log.w(TAG, "Error adding document", e);
                             }
                         });
-                us=new User(pf.getName(), new ArrayList<String>(),new ArrayList<String>(),pfpath);
+                us=new User(pf.getName(), new ArrayList<String>(),new ArrayList<String>(),pfpath,fbs.getAuth().getCurrentUser().toString());
                 fbs.getFire().collection("Users")
                         .add(us)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
