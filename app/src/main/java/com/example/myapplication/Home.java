@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +15,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Home extends Fragment {
+    private FrameLayout fm;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +64,20 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Connectcomp();
+    }
+
+    private void Connectcomp() {
+        fm=getActivity().findViewById(R.id.framehome);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.framehome, Profiles.class, null)
+                .commit();
     }
 }

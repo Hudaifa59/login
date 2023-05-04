@@ -142,27 +142,9 @@ public class UserFrag extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                pfpath=documentReference.getId().toString();
+                                pfpath=documentReference.getId();
                                 Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
-                us=new User(pf.getName(), new ArrayList<String>(),new ArrayList<String>(),pfpath,fbs.getAuth().getCurrentUser().toString());
-                fbs.getFire().collection("Users")
-                        .add(us)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.framMain, new Profiles());
-                                ft.commit();
+                                Useradd(pfpath);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -204,5 +186,26 @@ public class UserFrag extends Fragment {
             Uri selectedImage= data.getData();
             imgp.setImageURI(selectedImage);
         }
+    }
+    public void Useradd(String ref){
+        us=new User(pf.getName(), new ArrayList<String>(),new ArrayList<String>(),pfpath,fbs.getAuth().getCurrentUser().getEmail().toString());
+        fbs.getFire().collection("Users")
+                .add(us)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.framMain, new Home());
+                        ft.commit();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+
     }
 }

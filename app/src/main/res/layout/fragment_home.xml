@@ -9,20 +9,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="673dp"
-            design:menu="@menu/navbar"
-            />
+            android:layout_marginBottom="1dp"
+            design:layout_constraintBottom_toBottomOf="parent"
+            design:layout_constraintEnd_toEndOf="parent"
+            design:layout_constraintStart_toStartOf="parent"
+            design:menu="@menu/navbar" />
 
         <FrameLayout
-            android:layout_width="411dp"
-            android:layout_height="576dp"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="96dp">
+
+            android:id="@+id/framehome"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            design:layout_constraintBottom_toBottomOf="parent"
+            design:layout_constraintEnd_toEndOf="parent"
+            design:layout_constraintStart_toStartOf="parent"
+            design:layout_constraintTop_toTopOf="parent">
 
         </FrameLayout>
 
