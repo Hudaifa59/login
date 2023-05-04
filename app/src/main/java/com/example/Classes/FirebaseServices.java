@@ -1,4 +1,4 @@
-package com.example.users;
+package com.example.Classes;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

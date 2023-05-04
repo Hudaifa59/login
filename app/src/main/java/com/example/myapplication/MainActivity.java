@@ -1,14 +1,11 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import com.example.users.FirebaseServices;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.Classes.FirebaseServices;
 
 public class MainActivity extends AppCompatActivity {
 

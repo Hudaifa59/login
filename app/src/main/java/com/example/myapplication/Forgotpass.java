@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import com.example.users.FirebaseServices;
+import com.example.Classes.FirebaseServices;
 
 /**
  * A simple {@link Fragment} subclass.

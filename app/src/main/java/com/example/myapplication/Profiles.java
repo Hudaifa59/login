@@ -6,9 +6,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.users.FirebaseServices;
-import com.example.users.Profile;
-import com.example.users.ProfileAdapter;
+import com.example.Classes.FirebaseServices;
+import com.example.Classes.Profile;
+import com.example.Classes.ProfileAdapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +20,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

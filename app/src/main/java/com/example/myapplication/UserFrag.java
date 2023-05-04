@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.Classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,12 +33,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.UUID;
 
-import com.example.users.FirebaseServices;
-import com.example.users.Profile;
+import com.example.Classes.FirebaseServices;
+import com.example.Classes.Profile;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +46,8 @@ import com.example.users.Profile;
  */
 public class UserFrag extends Fragment {
 
+    private String pfpath;
+    private User us;
     private Bitmap Image;
     private Profile pf;
     private FirebaseServices fbs;
@@ -134,14 +137,29 @@ public class UserFrag extends Fragment {
                 String path=UploadImageToFirebase();
                 if(path==null)return;
                 pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,path,0);
-                //Map<String,Profile> Profiles = new HashMap<>();
-                //Profiles.put("profile",pf);
                 fbs.getFire().collection("Profiles")
                         .add(pf)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
 
+                                pfpath=documentReference.getId();
+                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                            }
+                        });
+                us=new User(pf.getName(), new ArrayList<String>(),new ArrayList<String>(),pfpath);
+                fbs.getFire().collection("Users")
+                        .add(us)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
                                 Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                                 ft.replace(R.id.framMain, new Profiles());

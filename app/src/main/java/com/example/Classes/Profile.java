@@ -1,6 +1,4 @@
-package com.example.users;
-
-import android.widget.ImageView;
+package com.example.Classes;
 
 public class Profile {
     private String nickname;
