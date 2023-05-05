@@ -7,7 +7,6 @@ public class Profile {
     private String phone;
     private String image;
     private int posts;
-
     public Profile() {
     }
 
