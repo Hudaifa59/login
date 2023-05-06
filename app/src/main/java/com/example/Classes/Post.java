@@ -5,14 +5,13 @@ import java.util.ArrayList;
 
 public class Post {
     private String image;
-    private ArrayList<Comment> comments;
+    private ArrayList<String> comments;
     private ArrayList<String> likes;
     private String caption;
     private String User;
-
     public Post(String image, String caption, String user) {
         this.image = image;
-        this.comments = new ArrayList<Comment>();
+        this.comments = new ArrayList<String>();
         this.likes=new ArrayList<>() ;
         this.caption = caption;
         User = user;
@@ -26,11 +25,11 @@ public class Post {
         this.image = image;
     }
 
-    public ArrayList<Comment> getComments() {
+    public ArrayList<String> getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(ArrayList<String> comments) {
         this.comments = comments;
     }
 

@@ -156,7 +156,6 @@ public class UserFrag extends Fragment {
 
             }
         });
-
     }
 
     private String UploadImageToFirebase(){
