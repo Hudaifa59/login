@@ -2,12 +2,16 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +20,7 @@ import android.widget.FrameLayout;
  */
 public class Home extends Fragment {
     private FrameLayout fm;
+    private BottomNavigationView miniicon;
 
 
 
@@ -75,6 +80,42 @@ public class Home extends Fragment {
 
     private void Connectcomp() {
         fm=getActivity().findViewById(R.id.framehome);
+        miniicon = getActivity().findViewById(R.id.navbarhome);
+        miniicon.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.homep:getActivity().getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .add(R.id.framehome, Profiles.class, null)
+                            .commit();
+                        // Handle click on Home button
+                        return true;
+                    case R.id.profileminip:getActivity().getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .add(R.id.framehome, Profilepage.class, null)
+                            .commit();
+                        // Handle click on Profile button
+                        return true;
+                    case R.id.solarsystemp:
+                        // Handle click on Settings button
+                        return true;
+                    case R.id.uppostic:getActivity().getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .add(R.id.framehome, Uploadpost.class, null)
+                            .commit();
+                        return true;
+                    case R.id.searchp:
+                        return true;
+                    default:getActivity().getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .add(R.id.framehome, Profiles.class, null)
+                            .commit();
+                        return false;
+
+                }
+            }
+        });
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .add(R.id.framehome, Profiles.class, null)

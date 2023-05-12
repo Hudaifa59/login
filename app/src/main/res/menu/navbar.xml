@@ -10,17 +10,17 @@
         android:icon="@drawable/search"
         />
     <item
-        android:id="@+id/postic"
+        android:id="@+id/uppostic"
         android:title="Upload"
         android:icon="@drawable/post"
         />
 
     <item
-        android:id="@+id/solarsystem"
+        android:id="@+id/solarsystemp"
         android:title="Solar System"
         android:icon="@drawable/solarsystem"/>
     <item
-        android:id="@+id/profilemini"
+        android:id="@+id/profileminip"
         android:title="Profile"
         android:icon="@drawable/user"
         />

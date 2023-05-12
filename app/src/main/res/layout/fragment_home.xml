@@ -14,7 +14,7 @@
             android:id="@+id/framehome"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            design:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            design:layout_constraintBottom_toTopOf="@+id/navbarhome"
             design:layout_constraintEnd_toEndOf="parent"
             design:layout_constraintStart_toStartOf="parent"
             design:layout_constraintTop_toTopOf="parent">
@@ -22,7 +22,7 @@
         </FrameLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
+            android:id="@+id/navbarhome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="66dp"

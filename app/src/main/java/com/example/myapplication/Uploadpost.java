@@ -26,8 +26,15 @@ import android.widget.Toast;
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
 import com.example.Classes.Profile;
+import com.example.Classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -103,6 +110,7 @@ public class Uploadpost extends Fragment {
         super.onStart();
          ivpost=getView().findViewById(R.id.Uploadiv);
          fbs=FirebaseServices.getInstance();
+         uploadbtn=getView().findViewById(R.id.uploadbtn);
          etcaption=getView().findViewById(R.id.ETcaptionup);
          ivpost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,13 +151,46 @@ public class Uploadpost extends Fragment {
         });
     }
 
+    private void Useradd(String postpath) {
+        String email = fbs.getAuth().getCurrentUser().getEmail();
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+        Query emailQuery = usersRef.orderByKey().equalTo(email);
+
+        emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    User user = userSnapshot.getValue(User.class);
+                    ArrayList<String> post=user.getPost();
+                    post.add(postpath);
+                    user.setPost(post);
+                    userSnapshot.getRef().setValue(user, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            if (databaseError != null) {
+                                // Handle errors
+                            } else {
+                                // Data updated successfully
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
+    }
+
     private String UploadImageToFirebase(){
         BitmapDrawable drawable = (BitmapDrawable) ivpost.getDrawable();
         Image = drawable.getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Image.compress(Bitmap.CompressFormat.JPEG,100,baos);
         byte[]data= baos.toByteArray();
-        StorageReference ref =fbs.getStorage().getReference("listingPictures/"+ UUID.randomUUID().toString());
+        StorageReference ref =fbs.getStorage().getReference("Posts/"+ UUID.randomUUID().toString());
         UploadTask uploadTask =ref.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
