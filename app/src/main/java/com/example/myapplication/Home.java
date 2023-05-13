@@ -81,44 +81,20 @@ public class Home extends Fragment {
     private void Connectcomp() {
         fm=getActivity().findViewById(R.id.framehome);
         miniicon = getActivity().findViewById(R.id.navbarhome);
-        miniicon.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.homep:getActivity().getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .add(R.id.framehome, Profiles.class, null)
-                            .commit();
-                        // Handle click on Home button
-                        return true;
-                    case R.id.profileminip:getActivity().getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .add(R.id.framehome, Profilepage.class, null)
-                            .commit();
-                        // Handle click on Profile button
-                        return true;
-                    case R.id.solarsystemp:
-                        // Handle click on Settings button
-                        return true;
-                    case R.id.uppostic:getActivity().getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .add(R.id.framehome, Uploadpost.class, null)
-                            .commit();
-                        return true;
-                    case R.id.searchp:
-                        return true;
-                    default:getActivity().getSupportFragmentManager().beginTransaction()
-                            .setReorderingAllowed(true)
-                            .add(R.id.framehome, Profiles.class, null)
-                            .commit();
-                        return false;
-
-                }
+        miniicon.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.homep:
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Profiles()).commit();
+                    return true;
+                case R.id.uppostic:
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Uploadpost()).commit();
+                    return true;
+                case R.id.profileminip:
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Profilepage()).commit();
+                    return true;
+                default:
+                    return false;
             }
         });
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.framehome, Profiles.class, null)
-                .commit();
     }
 }
