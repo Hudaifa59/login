@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -129,15 +130,15 @@ public class Uploadpost extends Fragment {
                 }
                 String path=UploadImageToFirebase();
                 if(path==null)return;
-                pst=new Post(path,caption,fbs.getAuth().getCurrentUser().toString());
-                fbs.getFire().collection("Profiles")
+                pst=new Post(path,caption,fbs.getAuth().getCurrentUser().getEmail());
+                fbs.getFire().collection("Posts")
                         .add(pst)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 postpath=documentReference.getId();
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                 Useradd(postpath);
+                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

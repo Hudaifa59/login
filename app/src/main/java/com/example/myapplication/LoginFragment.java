@@ -132,7 +132,7 @@ public class LoginFragment extends Fragment {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                    ft.replace(R.id.framMain, new Home());
+                                    ft.replace(R.id.framMain,new Home());
                                     ft.commit();
                                 }
                                 else {

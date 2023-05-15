@@ -9,6 +9,15 @@ public class Post {
     private ArrayList<String> likes;
     private String caption;
     private String User;
+
+    public Post(String image, ArrayList<String> comments, ArrayList<String> likes, String caption, String user) {
+        this.image = image;
+        this.comments = comments;
+        this.likes = likes;
+        this.caption = caption;
+        User = user;
+    }
+
     public Post(String image, String caption, String user) {
         this.image = image;
         this.comments = new ArrayList<String>();
