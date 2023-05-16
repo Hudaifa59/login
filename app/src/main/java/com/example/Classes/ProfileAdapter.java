@@ -23,7 +23,6 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 public class  ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
-    private Bitmap bitmap1;
     private FirebaseServices fbs;
     private List<Profile> data;
 

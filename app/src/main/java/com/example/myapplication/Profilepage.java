@@ -17,9 +17,12 @@ import com.example.Classes.Minipostadapter;
 import com.example.Classes.Profile;
 import com.example.Classes.ProfileAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -30,9 +33,9 @@ import java.util.ArrayList;
  */
 public class Profilepage extends Fragment {
 
-    private ArrayList<String> minipost;
+    private ArrayList<String> minipost,posts;
 
-    private RecyclerView recyclerViewprofile;
+    private RecyclerView recyclerViewminipost;
     private Minipostadapter minipostadapter;
 
     private FirebaseServices fbs;
@@ -95,20 +98,19 @@ public class Profilepage extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framMain,new LoginFragment()).commit();
             }
         });
-        recyclerViewprofile = getActivity().findViewById(R.id.minipostrv);
-        recyclerViewprofile.setHasFixedSize(true);
-        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewminipost = getActivity().findViewById(R.id.minipostrv);
+        recyclerViewminipost.setHasFixedSize(true);
+        recyclerViewminipost.setLayoutManager(new LinearLayoutManager(getActivity()));
         minipostadapter = new Minipostadapter(new ArrayList<>(),getActivity());
-        recyclerViewprofile.setAdapter(minipostadapter);
+        recyclerViewminipost.setAdapter(minipostadapter);
         fbs=FirebaseServices.getInstance();
+        minipost=new ArrayList<String>();
         Recyclerview();
     }
 
-    private void EventChangeListener(ArrayList<String>minipost) {
-
+    private void EventChangeListener(ArrayList<String> minipost) {
         minipostadapter = new Minipostadapter(minipost,getActivity());
-        recyclerViewprofile.setAdapter(minipostadapter);
-
+        recyclerViewminipost.setAdapter(minipostadapter);
     }
     private void Recyclerview() {
         String userEmail = fbs.getAuth().getCurrentUser().getEmail();
@@ -124,12 +126,32 @@ public class Profilepage extends Fragment {
 
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                         String userId = doc.getId();
-                        minipost = (ArrayList<String>) doc.get("post");
-                        EventChangeListener(minipost);
+                        posts = (ArrayList<String>) doc.get("post");
+                        setMinipost(posts);
                     }
                 })
                 .addOnFailureListener(e -> {
                     System.out.println("Error retrieving users: " + e.getMessage());
                 });
+    }
+    private void setMinipost(ArrayList<String> posts) {
+        int i=0;
+        while (i<posts.size()){
+            DocumentReference userRef = fbs.getFire().collection("Posts").document(posts.get(i));
+            userRef.get()
+                    .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+                        if (documentSnapshot.exists()) {
+                            // The document exists, you can access its data
+                            minipost.add( documentSnapshot.getString("image"));
+                            EventChangeListener(minipost);
+                        } else {
+                            System.out.println("User document doesn't exist.");
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        System.out.println("Error retrieving user: " + e.getMessage());
+                    });
+            i=i+1;
+        }
     }
 }

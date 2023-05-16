@@ -80,18 +80,6 @@ public class Profiles extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profiles, container, false);
     }
-/*    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        recyclerViewprofile = view.findViewById(R.id.recycleprofile);
-        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getActivity()));
-        profileAdapter = new ProfileAdapter(new ArrayList<>());
-        recyclerViewprofile.setAdapter(profileAdapter);
-        EventChangeListener();
-    }/*
-
- */
     @Override
     public void onStart() {
         super.onStart();
