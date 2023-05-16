@@ -25,32 +25,30 @@ import java.util.List;
 public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewHolder> {
     private Bitmap bitmap1;
     private FirebaseServices fbs;
-    private List<Profile> data;
+    private List<String> data;
 
     private Context context;
-    public Minipostadapter(List<Profile> data,Context context) {
+    public Minipostadapter(List<String> data,Context context) {
         this.data = data;
         this.context=context;
     }
 
-    public void setData(List<Profile> data) {
+    public void setData(List<String> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.minipost, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Profile profile=data.get(position);
+        String s=data.get(position);
         fbs =FirebaseServices.getInstance();
-
-        StorageReference storageRef= fbs.getStorage().getInstance().getReference().child(profile.getImage());
-
+        StorageReference storageRef= fbs.getStorage().getInstance().getReference().child(s);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

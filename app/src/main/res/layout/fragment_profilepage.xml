@@ -68,10 +68,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/minipostrv"
-            android:layout_width="0dp"
-            android:layout_height="195dp"
-            android:layout_marginTop="537dp"
+            android:layout_width="417dp"
+            android:layout_height="326dp"
+            android:layout_marginTop="404dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

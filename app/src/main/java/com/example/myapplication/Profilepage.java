@@ -3,13 +3,25 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.Classes.FirebaseServices;
+import com.example.Classes.Minipostadapter;
+import com.example.Classes.Profile;
+import com.example.Classes.ProfileAdapter;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +29,11 @@ import com.example.Classes.FirebaseServices;
  * create an instance of this fragment.
  */
 public class Profilepage extends Fragment {
+
+    private ArrayList<String> minipost;
+
+    private RecyclerView recyclerViewprofile;
+    private Minipostadapter minipostadapter;
 
     private FirebaseServices fbs;
     private Button signoubtn;
@@ -70,7 +87,7 @@ public class Profilepage extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        connectcomp();
+        signoubtn=getView().findViewById(R.id.signoutbtn);
         signoubtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,10 +95,41 @@ public class Profilepage extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framMain,new LoginFragment()).commit();
             }
         });
+        recyclerViewprofile = getActivity().findViewById(R.id.minipostrv);
+        recyclerViewprofile.setHasFixedSize(true);
+        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getActivity()));
+        minipostadapter = new Minipostadapter(new ArrayList<>(),getActivity());
+        recyclerViewprofile.setAdapter(minipostadapter);
+        fbs=FirebaseServices.getInstance();
+        Recyclerview();
     }
 
-    private void connectcomp() {
-        signoubtn=getView().findViewById(R.id.signoutbtn);
-        fbs=FirebaseServices.getInstance();
+    private void EventChangeListener(ArrayList<String>minipost) {
+
+        minipostadapter = new Minipostadapter(minipost,getActivity());
+        recyclerViewprofile.setAdapter(minipostadapter);
+
+    }
+    private void Recyclerview() {
+        String userEmail = fbs.getAuth().getCurrentUser().getEmail();
+        fbs.getFire().collection("Users").whereEqualTo("user", userEmail)
+                .get()
+                .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                    if (querySnapshot.isEmpty()) {
+                        System.out.println("No users found.");
+                        return;
+                    }
+
+                    System.out.println("Number of users: " + querySnapshot.size());
+
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        String userId = doc.getId();
+                        minipost = (ArrayList<String>) doc.get("post");
+                        EventChangeListener(minipost);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error retrieving users: " + e.getMessage());
+                });
     }
 }

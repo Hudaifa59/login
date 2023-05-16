@@ -30,8 +30,8 @@ public class Profiles extends Fragment {
     private ArrayList<Profile> profileList;
 
     private RecyclerView recyclerViewprofile;
-    ProfileAdapter profileAdapter;
-    FirebaseServices fbs;
+    private ProfileAdapter profileAdapter;
+    private FirebaseServices fbs;
     private ProgressDialog progressDialog;
 
     // TODO: Rename parameter arguments, choose names that match
