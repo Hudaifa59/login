@@ -100,16 +100,6 @@ public class Profiles extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching data....");
         progressDialog.show();
-
-        recyclerViewprofile=getActivity().findViewById(R.id.profiles);
-        recyclerViewprofile.setHasFixedSize(true);
-        recyclerViewprofile.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        fbs=FirebaseServices.getInstance();
-        profileArrayList=new ArrayList<Profile>();
-        profileAdapter=new ProfileAdapter(profileArrayList);
-        recyclerViewprofile.setAdapter(profileAdapter);
-        EventChangeListener();
         */
         recyclerViewprofile = getActivity().findViewById(R.id.recycleprofile);
         recyclerViewprofile.setHasFixedSize(true);

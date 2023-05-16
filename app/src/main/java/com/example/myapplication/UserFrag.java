@@ -188,7 +188,7 @@ public class UserFrag extends Fragment {
     }
     public void Useradd(String ref){
         ArrayList<String> s=new ArrayList<String>();
-        us=new User(pf.getName(), s,s,pfpath,fbs.getAuth().getCurrentUser().getEmail(),s);
+        us=new User(pf.getName(), s,s,pfpath,fbs.getAuth().getCurrentUser().getEmail().toString(),s);
         fbs.getFire().collection("Users")
                 .add(us)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

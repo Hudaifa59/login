@@ -3,6 +3,8 @@ package com.example.myapplication;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
+import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -37,6 +39,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -54,7 +58,6 @@ public class Uploadpost extends Fragment {
     private Bitmap Image;
     private FirebaseServices fbs;
     private EditText etcaption;
-    private String postpath;
     private Button uploadbtn;
     private Post pst;
 
@@ -132,58 +135,56 @@ public class Uploadpost extends Fragment {
                 if(path==null)return;
                 pst=new Post(path,caption,fbs.getAuth().getCurrentUser().getEmail());
                 fbs.getFire().collection("Posts")
-                        .add(pst)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                postpath=documentReference.getId();
-                                Useradd(postpath);
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
+                            .add(pst)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    String postpath=documentReference.getId();
+                                    Useradd(postpath);
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
 
             }
         });
     }
 
     private void Useradd(String postpath) {
-        String email = fbs.getAuth().getCurrentUser().getEmail();
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
-        Query emailQuery = usersRef.orderByKey().equalTo(email);
+        String userEmail = fbs.getAuth().getCurrentUser().getEmail();
+        fbs.getFire().collection("Users").whereEqualTo("user", userEmail)
+                .get()
+                .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                    if (querySnapshot.isEmpty()) {
+                        System.out.println("No users found.");
+                        return;
+                    }
 
-        emailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    User user = userSnapshot.getValue(User.class);
-                    ArrayList<String> post=user.getPost();
-                    post.add(postpath);
-                    user.setPost(post);
-                    userSnapshot.getRef().setValue(user, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                            if (databaseError != null) {
-                                // Handle errors
-                            } else {
-                                // Data updated successfully
-                            }
-                        }
-                    });
-                }
-            }
+                    System.out.println("Number of users: " + querySnapshot.size());
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle errors
-            }
-        });
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        String userId = doc.getId();
+                        ArrayList<String> posts = (ArrayList<String>) doc.get("post");
+                        posts.add(postpath);
+                        doc.getReference().update("post", posts)
+                                .addOnSuccessListener(aVoid -> {
+                                    System.out.println("ArrayList updated successfully.");
+                                })
+                                .addOnFailureListener(e -> {
+                                    System.out.println("Error updating ArrayList: " + e.getMessage());
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error retrieving users: " + e.getMessage());
+                });
     }
+
 
     private String UploadImageToFirebase(){
         BitmapDrawable drawable = (BitmapDrawable) ivpost.getDrawable();

@@ -22,7 +22,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
-public class Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewHolder> {
+public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewHolder> {
     private Bitmap bitmap1;
     private FirebaseServices fbs;
     private List<Profile> data;
@@ -72,7 +72,6 @@ public class Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         ImageView minipost;
 
         public ViewHolder(View itemView) {
