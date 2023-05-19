@@ -11,11 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.LoginFragment;
 import com.example.myapplication.R;
+import com.example.myapplication.posts;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
@@ -62,6 +68,13 @@ public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewH
                 // Handle any errors that occur when downloading the image
             }
         });
+        holder.minipost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new posts()).commit();
+            }
+        });
     }
 
     @Override
@@ -76,6 +89,13 @@ public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewH
             super(itemView);
             minipost=itemView.findViewById(R.id.minipostiv);
         }
+    }
+
+    public void gotoProfileFragment()
+    {
+        //FragmentTransaction ft = .getSupportFragmentManager().beginTransaction();
+        //ft.replace(R.id.framMain, new LoginFragment());
+        //ft.commit();
     }
 }
 

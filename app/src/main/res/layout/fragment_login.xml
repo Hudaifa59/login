@@ -71,15 +71,5 @@
             app:layout_constraintStart_toStartOf="@+id/PasswordLogin"
             app:layout_constraintTop_toBottomOf="@+id/PasswordLogin" />
 
-        <Button
-            android:id="@+id/UserFragbt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:text="UserFrag"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Signuptv" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

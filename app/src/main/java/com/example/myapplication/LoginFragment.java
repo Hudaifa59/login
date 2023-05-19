@@ -91,15 +91,6 @@ public class LoginFragment extends Fragment {
         fp=getView().findViewById(R.id.forgotPasswordtv);
         su=getView().findViewById(R.id.Signuptv);
         fbs = FirebaseServices.getInstance();
-        userbt=getView().findViewById(R.id.UserFragbt);
-        userbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framMain, new UserFrag());
-                ft.commit();
-            }
-        });
         fp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
