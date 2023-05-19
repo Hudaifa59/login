@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewHolder> {
-    private Bitmap bitmap1;
     private FirebaseServices fbs;
     private List<String> data;
     private List<Post> posts;
@@ -69,7 +68,7 @@ public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewH
         holder.minipost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                AppCompatActivity activity = (AppCompatActivity) context;
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Postsprofile((ArrayList<Post>) posts)).commit();
             }
         });

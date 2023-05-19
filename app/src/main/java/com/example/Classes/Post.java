@@ -11,13 +11,16 @@ public class Post {
     private String User;
     private int share;
 
-    public Post(String image, ArrayList<String> comments, ArrayList<String> likes, String caption, String user,int share) {
+    public Post(String image, ArrayList<String> comments, ArrayList<String> likes, String caption, String user, int share) {
         this.image = image;
         this.comments = comments;
         this.likes = likes;
         this.caption = caption;
         User = user;
-        this.share=share;
+        this.share = share;
+    }
+
+    public Post() {
     }
 
     public Post(String image, String caption, String user) {
@@ -27,14 +30,6 @@ public class Post {
         this.caption = caption;
         User = user;
         this.share=0;
-    }
-
-    public int getShare() {
-        return share;
-    }
-
-    public void setShare(int share) {
-        this.share = share;
     }
 
     public String getImage() {
@@ -75,6 +70,14 @@ public class Post {
 
     public void setUser(String user) {
         User = user;
+    }
+
+    public int getShare() {
+        return share;
+    }
+
+    public void setShare(int share) {
+        this.share = share;
     }
 
     @Override

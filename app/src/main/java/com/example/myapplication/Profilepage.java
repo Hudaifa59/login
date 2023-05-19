@@ -167,10 +167,12 @@ public class Profilepage extends Fragment {
             DocumentReference userRef = fbs.getFire().collection("Posts").document(posts.get(i));
             userRef.get()
                     .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+
                         if (documentSnapshot.exists()) {
-                            // The document exists, you can access its data
-                            Post post=documentSnapshot.toObject(Post.class);
-                            postsp.add(post);
+                                documentSnapshot.getData();
+                                documentSnapshot.toObject(Post.class);
+                                Post post=documentSnapshot.toObject(Post.class);
+                                postsp.add(post);
                         } else {
                             System.out.println("User document doesn't exist.");
                         }
