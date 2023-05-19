@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Minipostadapter;
+import com.example.Classes.Post;
 import com.example.Classes.Profile;
 import com.example.Classes.ProfileAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +36,11 @@ import java.util.ArrayList;
 public class Profilepage extends Fragment {
 
     private ArrayList<String> minipost,posts;
-
+    private List<Post> postsp;
     private RecyclerView recyclerViewminipost;
     private Minipostadapter minipostadapter;
 
+    private String email;
     private FirebaseServices fbs;
     private Button signoubtn;
     // TODO: Rename parameter arguments, choose names that match
@@ -48,6 +51,10 @@ public class Profilepage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public Profilepage(String email) {
+        this.email = email;
+    }
 
     public Profilepage() {
         // Required empty public constructor
@@ -101,7 +108,7 @@ public class Profilepage extends Fragment {
         recyclerViewminipost = getActivity().findViewById(R.id.minipostrv);
         recyclerViewminipost.setHasFixedSize(true);
         recyclerViewminipost.setLayoutManager(new LinearLayoutManager(getActivity()));
-        minipostadapter = new Minipostadapter(new ArrayList<>(),getActivity());
+        minipostadapter = new Minipostadapter(new ArrayList<>(),getActivity(),new ArrayList<>());
         recyclerViewminipost.setAdapter(minipostadapter);
         fbs=FirebaseServices.getInstance();
         minipost=new ArrayList<String>();
@@ -109,12 +116,11 @@ public class Profilepage extends Fragment {
     }
 
     private void EventChangeListener(ArrayList<String> minipost) {
-        minipostadapter = new Minipostadapter(minipost,getActivity());
+        minipostadapter = new Minipostadapter(minipost,getActivity(),postsp);
         recyclerViewminipost.setAdapter(minipostadapter);
     }
     private void Recyclerview() {
-        String userEmail = fbs.getAuth().getCurrentUser().getEmail();
-        fbs.getFire().collection("Users").whereEqualTo("user", userEmail)
+        fbs.getFire().collection("Users").whereEqualTo("user", email)
                 .get()
                 .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
                     if (querySnapshot.isEmpty()) {
@@ -127,6 +133,7 @@ public class Profilepage extends Fragment {
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                         String userId = doc.getId();
                         posts = (ArrayList<String>) doc.get("post");
+                        Postarray();
                         setMinipost(posts);
                     }
                 })
@@ -144,6 +151,26 @@ public class Profilepage extends Fragment {
                             // The document exists, you can access its data
                             minipost.add( documentSnapshot.getString("image"));
                             EventChangeListener(minipost);
+                        } else {
+                            System.out.println("User document doesn't exist.");
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        System.out.println("Error retrieving user: " + e.getMessage());
+                    });
+            i=i+1;
+        }
+    }
+    private void Postarray(){
+        int i=0;
+        while (i<posts.size()){
+            DocumentReference userRef = fbs.getFire().collection("Posts").document(posts.get(i));
+            userRef.get()
+                    .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+                        if (documentSnapshot.exists()) {
+                            // The document exists, you can access its data
+                            Post post=documentSnapshot.toObject(Post.class);
+                            postsp.add(post);
                         } else {
                             System.out.println("User document doesn't exist.");
                         }

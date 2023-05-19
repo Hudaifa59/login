@@ -4,7 +4,14 @@ public class Reply {
     private String User;
     private String comment;
     private int likes;
-    public Reply(String comment,String user) {
+
+    public Reply(String user, String comment, int likes) {
+        User = user;
+        this.comment = comment;
+        this.likes = likes;
+    }
+
+    public Reply(String comment, String user) {
         this.comment = comment;
         this.User=user;
         this.likes=0;

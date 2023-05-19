@@ -6,12 +6,19 @@ public class Comment {
     private String User;
     private String comment;
     private int like;
-    private ArrayList<Reply> reply;
+    private ArrayList<String> reply;
 
-    public Comment(String comment,String user) {
+    public Comment(String user, String comment, int like, ArrayList<String> reply) {
+        User = user;
+        this.comment = comment;
+        this.like = like;
+        this.reply = reply;
+    }
+
+    public Comment(String comment, String user) {
         this.comment = comment;
         this.User=user;
-        this.reply=new ArrayList<Reply>();
+        this.reply=new ArrayList<String>();
         like=0;
     }
 
@@ -31,11 +38,11 @@ public class Comment {
         this.like = like;
     }
 
-    public ArrayList<Reply> getReply() {
+    public ArrayList<String> getReply() {
         return reply;
     }
 
-    public void setReply(ArrayList<Reply> reply) {
+    public void setReply(ArrayList<String> reply) {
         this.reply = reply;
     }
 

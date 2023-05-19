@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.example.Classes.FirebaseServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
@@ -22,6 +23,7 @@ public class Home extends Fragment {
     private FrameLayout fm;
     private BottomNavigationView miniicon;
 
+    private FirebaseServices fbs;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -79,6 +81,7 @@ public class Home extends Fragment {
     }
 
     private void Connectcomp() {
+        fbs=FirebaseServices.getInstance();
         fm=getActivity().findViewById(R.id.framehome);
         miniicon = getActivity().findViewById(R.id.navbarhome);
         miniicon.setOnNavigationItemSelectedListener(item -> {
@@ -90,7 +93,7 @@ public class Home extends Fragment {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Uploadpost()).commit();
                     return true;
                 case R.id.profileminip:
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Profilepage()).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Profilepage(fbs.getAuth().getCurrentUser().getEmail())).commit();
                     return true;
                 default:
                     return false;

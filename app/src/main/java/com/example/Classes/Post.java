@@ -9,13 +9,15 @@ public class Post {
     private ArrayList<String> likes;
     private String caption;
     private String User;
+    private int share;
 
-    public Post(String image, ArrayList<String> comments, ArrayList<String> likes, String caption, String user) {
+    public Post(String image, ArrayList<String> comments, ArrayList<String> likes, String caption, String user,int share) {
         this.image = image;
         this.comments = comments;
         this.likes = likes;
         this.caption = caption;
         User = user;
+        this.share=share;
     }
 
     public Post(String image, String caption, String user) {
@@ -24,6 +26,15 @@ public class Post {
         this.likes=new ArrayList<>() ;
         this.caption = caption;
         User = user;
+        this.share=0;
+    }
+
+    public int getShare() {
+        return share;
+    }
+
+    public void setShare(int share) {
+        this.share = share;
     }
 
     public String getImage() {
@@ -74,6 +85,7 @@ public class Post {
                 ", likes=" + likes +
                 ", caption='" + caption + '\'' +
                 ", User='" + User + '\'' +
+                ", share=" + share +
                 '}';
     }
 }

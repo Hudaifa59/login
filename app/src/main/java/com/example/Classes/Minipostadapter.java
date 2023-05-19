@@ -10,33 +10,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.LoginFragment;
+import com.example.myapplication.Postsprofile;
 import com.example.myapplication.R;
-import com.example.myapplication.posts;
+import com.example.myapplication.Postshome;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewHolder> {
     private Bitmap bitmap1;
     private FirebaseServices fbs;
     private List<String> data;
-
+    private List<Post> posts;
     private Context context;
-    public Minipostadapter(List<String> data,Context context) {
+    public Minipostadapter(List<String> data,Context context,List<Post>posts) {
         this.data = data;
         this.context=context;
+        this.posts=posts;
     }
 
     public void setData(List<String> data) {
@@ -72,7 +70,7 @@ public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewH
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new posts()).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Postsprofile((ArrayList<Post>) posts)).commit();
             }
         });
     }
@@ -89,13 +87,6 @@ public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewH
             super(itemView);
             minipost=itemView.findViewById(R.id.minipostiv);
         }
-    }
-
-    public void gotoProfileFragment()
-    {
-        //FragmentTransaction ft = .getSupportFragmentManager().beginTransaction();
-        //ft.replace(R.id.framMain, new LoginFragment());
-        //ft.commit();
     }
 }
 

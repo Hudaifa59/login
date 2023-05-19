@@ -88,7 +88,8 @@
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/ivlikepost"
-            app:layout_constraintTop_toBottomOf="@+id/tvCaption" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCaption"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvcommentspost"
