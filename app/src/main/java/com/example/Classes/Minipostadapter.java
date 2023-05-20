@@ -31,11 +31,13 @@ public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewH
     private List<Post> posts;
     private Context context;
     private String email;
-    public Minipostadapter(List<String> data,Context context,List<Post> posts,String email) {
+    private ArrayList<String> postsref;
+    public Minipostadapter(List<String> data,Context context,List<Post> posts,String email,ArrayList<String> postsref) {
         this.data = data;
         this.context=context;
         this.posts=posts;
         this.email=email;
+        this.postsref=postsref;
     }
 
     public void setData(List<String> data) {
@@ -71,7 +73,7 @@ public class  Minipostadapter extends RecyclerView.Adapter<Minipostadapter.ViewH
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) context;
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Postsprofile((ArrayList<Post>) posts,email)).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Postsprofile((ArrayList<Post>) posts,email,postsref)).addToBackStack(null).commit();
             }
         });
     }

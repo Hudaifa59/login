@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
@@ -32,7 +34,9 @@ public class Postsprofile extends Fragment {
     private PostAdapter postAdapter;
     private String email;
     FirebaseServices fbs;
+    ImageView btn;
     private Profile profile;
+    private ArrayList<String> postref;
     private ArrayList<Post> postArrayList;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,10 +50,11 @@ public class Postsprofile extends Fragment {
     public Postsprofile() {
     }
 
-    public Postsprofile(ArrayList<Post> postArrayList,String email) {
+    public Postsprofile(ArrayList<Post> postArrayList,String email,ArrayList<String> postsref) {
         this.postArrayList = postArrayList;
         this.email=email;
         GetUser(email);
+        this.postref=postsref;
     }
 
     /**
@@ -89,10 +94,16 @@ public class Postsprofile extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        btn=getView().findViewById(R.id.backbtnposts);
         recyclerViewpost = getActivity().findViewById(R.id.recycleviewposts);
         recyclerViewpost.setHasFixedSize(true);
         recyclerViewpost.setLayoutManager(new LinearLayoutManager(getActivity()));
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().popBackStack();
+            }
+        });
 
     }
     private void GetUser(String email) {
@@ -134,7 +145,7 @@ public class Postsprofile extends Fragment {
     }
 
     private void eventonchange() {
-        postAdapter = new PostAdapter(getActivity(),postArrayList,profile);
+        postAdapter = new PostAdapter(getActivity(),postArrayList,profile,postref);
         recyclerViewpost.setAdapter(postAdapter);
     }
 }

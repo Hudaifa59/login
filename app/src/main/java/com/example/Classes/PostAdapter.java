@@ -3,6 +3,7 @@ package com.example.Classes;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -31,12 +33,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     private FirebaseServices fbs;
     ArrayList<Post> postArrayList;
     private Profile profile;
+    private ArrayList<String> postref;
 
 
-    public PostAdapter(Context context, ArrayList<Post> postArrayList,Profile profile) {
+    public PostAdapter(Context context, ArrayList<Post> postArrayList,Profile profile,ArrayList<String> postsref) {
         this.context = context;
         this.postArrayList = postArrayList;
         this.profile=profile;
+        this.postref=postsref;
     }
 
     @NonNull
@@ -83,11 +87,88 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 // Handle any errors that occur when downloading the image
             }
         });
-            holder.comment.setText(""+ post.getComments().size());
-            holder.like.setText(""+post.getLikes().size());
-            holder.share.setText(""+post.getShare());
-            holder.username.setText(profile.getNickname());
-            holder.caption.setText(post.getCaption());
+        holder.comment.setText(""+ post.getComments().size());
+        holder.like.setText(""+post.getLikes().size());
+        holder.share.setText(""+post.getShare());
+        holder.username.setText(profile.getNickname());
+        holder.caption.setText(post.getCaption());holder.like.setGravity(Gravity.CENTER);
+        holder.like.setGravity(Gravity.RIGHT);
+        holder.share.setGravity(Gravity.RIGHT);
+        holder.comment.setGravity(Gravity.RIGHT);
+        if(post.getLikes().size()!=0){
+            for (int i=0;i<post.getLikes().size();i=i+1){
+                if (post.getLikes().get(i)== fbs.getAuth().getCurrentUser().getEmail())holder.likes.setImageResource(R.drawable.filledheart);
+            }
+        }
+        holder.likes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.likes.getDrawable().getConstantState().equals(ContextCompat.getDrawable(context, R.drawable.filledheart).getConstantState())) {
+                    DocumentReference userRef = fbs.getFire().collection("Posts").document(postref.get(position));
+                    userRef.get()
+                            .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+
+                                if (documentSnapshot.exists()) {
+                                    ArrayList<String> likes=postArrayList.get(position).getLikes();
+                                    likes.remove(fbs.getAuth().getCurrentUser().getEmail());
+                                    documentSnapshot.getReference().update("likes", likes)
+                                            .addOnSuccessListener(aVoid -> {
+                                                System.out.println("ArrayList updated successfully.");
+                                                holder.likes.setImageResource(R.drawable.heart);
+                                                holder.like.setText(""+likes.size());
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                System.out.println("Error updating ArrayList: " + e.getMessage());
+                                            });
+                                } else {
+                                    System.out.println("User document doesn't exist.");
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                System.out.println("Error retrieving user: " + e.getMessage());
+                            });
+
+                } else {
+                    DocumentReference userRef = fbs.getFire().collection("Posts").document(postref.get(position));
+                    userRef.get()
+                            .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+
+                                if (documentSnapshot.exists()) {
+                                    ArrayList<String> likes=postArrayList.get(position).getLikes();
+                                    likes.add(fbs.getAuth().getCurrentUser().getEmail());
+                                    documentSnapshot.getReference().update("likes", likes)
+                                            .addOnSuccessListener(aVoid -> {
+                                                System.out.println("ArrayList updated successfully.");
+                                                holder.likes.setImageResource(R.drawable.filledheart);
+                                                holder.like.setText(""+likes.size());
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                System.out.println("Error updating ArrayList: " + e.getMessage());
+                                            });
+                                } else {
+                                    System.out.println("User document doesn't exist.");
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                System.out.println("Error retrieving user: " + e.getMessage());
+                            });
+
+
+                }
+            }
+        });
+        holder.comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        holder.shares.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

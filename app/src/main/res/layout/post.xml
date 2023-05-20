@@ -51,73 +51,72 @@
                 android:id="@+id/ivlikepost"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginEnd="68dp"
                 app:layout_constraintBottom_toTopOf="@+id/tvlikespost"
-                app:layout_constraintEnd_toStartOf="@+id/ivsharepost"
+                app:layout_constraintEnd_toStartOf="@+id/ivcommentpost"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ivcommentpost"
+                app:layout_constraintTop_toBottomOf="@+id/tvCaption"
                 app:srcCompat="@drawable/heart" />
 
             <ImageView
                 android:id="@+id/ivcommentpost"
-                android:layout_width="68dp"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="59dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="59dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvcommentspost"
-                app:layout_constraintEnd_toEndOf="@+id/tvsharepost"
-                app:layout_constraintStart_toStartOf="@+id/ivlikepost"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivlikepost"
+                app:layout_constraintEnd_toStartOf="@+id/tvsharepost"
+                app:layout_constraintStart_toEndOf="@+id/ivlikepost"
                 app:layout_constraintTop_toBottomOf="@+id/tvCaption"
                 app:srcCompat="@drawable/comment" />
 
             <ImageView
                 android:id="@+id/ivsharepost"
-                android:layout_width="0dp"
+                android:layout_width="59dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="225dp"
                 app:layout_constraintBottom_toTopOf="@+id/tvsharepost"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivlikepost"
-                app:layout_constraintTop_toTopOf="@+id/ivcommentpost"
+                app:layout_constraintStart_toStartOf="@+id/tvsharepost"
+                app:layout_constraintTop_toBottomOf="@+id/tvCaption"
                 app:srcCompat="@drawable/share" />
 
             <TextView
                 android:id="@+id/tvlikespost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="78dp"
+                android:layout_marginBottom="85dp"
                 android:text="TextView"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/ivlikepost"
-                app:layout_constraintTop_toBottomOf="@+id/tvCaption"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintStart_toStartOf="@+id/ivlikepost" />
 
             <TextView
                 android:id="@+id/tvcommentspost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/ivlikepost"
-                app:layout_constraintTop_toTopOf="@+id/tvlikespost" />
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="@+id/ivcommentpost"
+                app:layout_constraintTop_toBottomOf="@+id/ivcommentpost" />
 
             <TextView
                 android:id="@+id/tvsharepost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="208dp"
+                android:layout_marginBottom="1dp"
                 android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/ivsharepost"
-                app:layout_constraintTop_toBottomOf="@+id/ivcommentpost" />
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/tvcommentspost"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivcommentpost" />
 
             <TextView
                 android:id="@+id/tvCaption"
                 android:layout_width="0dp"
                 android:layout_height="59dp"
-                android:layout_marginBottom="157dp"
+                android:layout_marginBottom="158dp"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

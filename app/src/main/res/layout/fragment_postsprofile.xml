@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/backbtnposts"
             android:layout_width="42dp"
             android:layout_height="46dp"
             android:layout_marginBottom="1dp"
@@ -30,6 +30,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/backbtnposts" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
