@@ -10,6 +10,9 @@ public class User {
     private String user;
     private ArrayList<String> post;
 
+    public User() {
+    }
+
     public User(String username, ArrayList<String> following, ArrayList<String> followers, String profile, String user, ArrayList<String> post) {
         this.username = username;
         this.following = following;

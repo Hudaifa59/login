@@ -10,10 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
 import com.example.Classes.PostAdapter;
 import com.example.Classes.Profile;
 import com.example.Classes.ProfileAdapter;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -26,6 +30,9 @@ public class Postsprofile extends Fragment {
 
     private RecyclerView recyclerViewpost;
     private PostAdapter postAdapter;
+    private String email;
+    FirebaseServices fbs;
+    private Profile profile;
     private ArrayList<Post> postArrayList;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,8 +46,10 @@ public class Postsprofile extends Fragment {
     public Postsprofile() {
     }
 
-    public Postsprofile(ArrayList<Post> postArrayList) {
+    public Postsprofile(ArrayList<Post> postArrayList,String email) {
         this.postArrayList = postArrayList;
+        this.email=email;
+        GetUser(email);
     }
 
     /**
@@ -80,10 +89,52 @@ public class Postsprofile extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         recyclerViewpost = getActivity().findViewById(R.id.recycleviewposts);
         recyclerViewpost.setHasFixedSize(true);
         recyclerViewpost.setLayoutManager(new LinearLayoutManager(getActivity()));
-        postAdapter = new PostAdapter(getActivity(),postArrayList);
+
+    }
+    private void GetUser(String email) {
+        fbs=FirebaseServices.getInstance();
+        fbs.getFire().collection("Users").whereEqualTo("user", email)
+                .get()
+                .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                    if (querySnapshot.isEmpty()) {
+                        System.out.println("No users found.");
+                        return;
+                    }
+
+                    System.out.println("Number of users: " + querySnapshot.size());
+
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        String userId = doc.getId();
+                        Getprofile(doc.get("profile").toString());
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error retrieving users: " + e.getMessage());
+                });
+    }
+    private void Getprofile(String profiles){
+        DocumentReference userRef = fbs.getFire().collection("Profiles").document(profiles);
+        userRef.get()
+                .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+                    if (documentSnapshot.exists()) {
+                        profile =documentSnapshot.toObject(Profile.class);
+                        eventonchange();
+                    } else {
+                        System.out.println("User document doesn't exist.");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error retrieving user: " + e.getMessage());
+                });
+
+    }
+
+    private void eventonchange() {
+        postAdapter = new PostAdapter(getActivity(),postArrayList,profile);
         recyclerViewpost.setAdapter(postAdapter);
     }
 }

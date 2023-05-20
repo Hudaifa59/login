@@ -108,15 +108,16 @@ public class Profilepage extends Fragment {
         recyclerViewminipost = getActivity().findViewById(R.id.minipostrv);
         recyclerViewminipost.setHasFixedSize(true);
         recyclerViewminipost.setLayoutManager(new LinearLayoutManager(getActivity()));
-        minipostadapter = new Minipostadapter(new ArrayList<>(),getActivity(),new ArrayList<>());
+        minipostadapter = new Minipostadapter(new ArrayList<String>(),getActivity(),new ArrayList<>(),"");
         recyclerViewminipost.setAdapter(minipostadapter);
         fbs=FirebaseServices.getInstance();
         minipost=new ArrayList<String>();
+        postsp=new ArrayList<Post>();
         Recyclerview();
     }
 
     private void EventChangeListener(ArrayList<String> minipost) {
-        minipostadapter = new Minipostadapter(minipost,getActivity(),postsp);
+        minipostadapter = new Minipostadapter(minipost,getActivity(),postsp,email);
         recyclerViewminipost.setAdapter(minipostadapter);
     }
     private void Recyclerview() {
@@ -169,8 +170,6 @@ public class Profilepage extends Fragment {
                     .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
 
                         if (documentSnapshot.exists()) {
-                                documentSnapshot.getData();
-                                documentSnapshot.toObject(Post.class);
                                 Post post=documentSnapshot.toObject(Post.class);
                                 postsp.add(post);
                         } else {
