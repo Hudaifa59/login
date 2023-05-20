@@ -97,7 +97,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.comment.setGravity(Gravity.RIGHT);
         if(post.getLikes().size()!=0){
             for (int i=0;i<post.getLikes().size();i=i+1){
-                if (post.getLikes().get(i)== fbs.getAuth().getCurrentUser().getEmail())holder.likes.setImageResource(R.drawable.filledheart);
+                if (post.getLikes().get(i).equals(fbs.getAuth().getCurrentUser().getEmail()))holder.likes.setImageResource(R.drawable.filledheart);
             }
         }
         holder.likes.setOnClickListener(new View.OnClickListener() {
