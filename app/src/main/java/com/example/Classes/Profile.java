@@ -6,17 +6,15 @@ public class Profile {
     private String gender;
     private String phone;
     private String image;
-    private int posts;
     public Profile() {
     }
 
-    public Profile(String nickname, String name, String gender, String phone, String image, int posts) {
+    public Profile(String nickname, String name, String gender, String phone, String image) {
         this.nickname = nickname;
         this.name = name;
         this.gender = gender;
         this.phone = phone;
         this.image = image;
-        this.posts = posts;
     }
 
     public String getNickname() {
@@ -59,13 +57,6 @@ public class Profile {
         this.image = image;
     }
 
-    public int getPosts() {
-        return posts;
-    }
-
-    public void setPosts(int posts) {
-        this.posts = posts;
-    }
 
     @Override
     public String toString() {
@@ -75,7 +66,6 @@ public class Profile {
                 ", gender='" + gender + '\'' +
                 ", phone='" + phone + '\'' +
                 ", image='" + image + '\'' +
-                ", posts=" + posts +
                 '}';
     }
 }

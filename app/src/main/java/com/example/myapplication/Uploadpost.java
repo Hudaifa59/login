@@ -3,10 +3,13 @@ package com.example.myapplication;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
+import static com.example.myapplication.MainActivity.resizeImageToAspectRatio;
 import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +48,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -212,6 +217,21 @@ public class Uploadpost extends Fragment {
         if(resultCode==RESULT_OK&& data != null){
             Uri selectedImage= data.getData();
             ivpost.setImageURI(selectedImage);
+            float aspectRatio = 4.0f / 3.0f;
+            try {
+                InputStream inputStream = getActivity().getContentResolver().openInputStream(selectedImage);
+                Bitmap originalImage = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
+
+                Bitmap resizedImage = resizeImageToAspectRatio(originalImage, aspectRatio);
+                float rotationAngle = 90f;
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotationAngle);
+                Bitmap rotatedImage = Bitmap.createBitmap(originalImage, 0, 0, originalImage.getWidth(), originalImage.getHeight(), matrix, true);
+                ivpost.setImageBitmap(rotatedImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

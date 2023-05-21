@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,12 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Minipostadapter;
 import com.example.Classes.Post;
 import com.example.Classes.Profile;
 import com.example.Classes.ProfileAdapter;
+import com.example.Classes.User;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,11 +43,14 @@ import java.util.List;
  */
 public class Profilepage extends Fragment {
 
+    ImageView imgpro;
+    TextView postsnum,following,followers,username,nickname;
     private ArrayList<String> minipost,posts;
     private List<Post> postsp;
+    private User user;
     private RecyclerView recyclerViewminipost;
     private Minipostadapter minipostadapter;
-
+    private Profile profile;
     private String email;
     private FirebaseServices fbs;
     private Button signoubtn;
@@ -114,6 +125,7 @@ public class Profilepage extends Fragment {
         minipost=new ArrayList<String>();
         postsp=new ArrayList<Post>();
         Recyclerview();
+        GetUser(email);
     }
 
     private void EventChangeListener(ArrayList<String> minipost) {
@@ -181,5 +193,71 @@ public class Profilepage extends Fragment {
                     });
             i=i+1;
         }
+    }
+    private void GetUser(String email) {
+        fbs=FirebaseServices.getInstance();
+        fbs.getFire().collection("Users").whereEqualTo("user", email)
+                .get()
+                .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                    if (querySnapshot.isEmpty()) {
+                        System.out.println("No users found.");
+                        return;
+                    }
+
+                    System.out.println("Number of users: " + querySnapshot.size());
+
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        String userId = doc.getId();
+                        user=doc.toObject(User.class);
+                        Getprofile(doc.get("profile").toString());
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error retrieving users: " + e.getMessage());
+                });
+    }
+    private void Getprofile(String profiles){
+        DocumentReference userRef = fbs.getFire().collection("Profiles").document(profiles);
+        userRef.get()
+                .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+                    if (documentSnapshot.exists()) {
+                        profile =documentSnapshot.toObject(Profile.class);
+                        connect();
+                    } else {
+                        System.out.println("User document doesn't exist.");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error retrieving user: " + e.getMessage());
+                });
+
+    }
+
+    private void connect() {
+        postsnum=getView().findViewById(R.id.postsprofilenum);
+        following=getView().findViewById(R.id.followingprofilenum);
+        followers=getView().findViewById(R.id.followersprofilenum);
+        imgpro=getView().findViewById(R.id.profilepic);
+        nickname=getView().findViewById(R.id.nicknameprofile);
+        username=getView().findViewById(R.id.usernameprofile);
+        StorageReference storageRef= fbs.getStorage().getInstance().getReference().child(profile.getImage());
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(getActivity())
+                        .load(uri)
+                        .into(imgpro);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Handle any errors that occur when downloading the image
+            }
+        });
+        postsnum.setText(user.getPost().size()+"");
+        followers.setText(user.getFollowers().size()+"");
+        following.setText(user.getFollowing().size()+"");
+        nickname.setText(profile.getNickname());
+        username.setText(profile.getName());
     }
 }

@@ -107,7 +107,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     DocumentReference userRef = fbs.getFire().collection("Posts").document(postref.get(position));
                     userRef.get()
                             .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
-
                                 if (documentSnapshot.exists()) {
                                     ArrayList<String> likes=postArrayList.get(position).getLikes();
                                     likes.remove(fbs.getAuth().getCurrentUser().getEmail());

@@ -3,8 +3,12 @@ package com.example.myapplication;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
+import static com.example.myapplication.MainActivity.resizeImageToAspectRatio;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -33,6 +37,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -136,7 +143,7 @@ public class UserFrag extends Fragment {
                     phone="";
                 String path=UploadImageToFirebase();
                 if(path==null)return;
-                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,path,0);
+                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,path);
                 fbs.getFire().collection("Profiles")
                         .add(pf)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -184,6 +191,21 @@ public class UserFrag extends Fragment {
         if(resultCode==RESULT_OK&& data != null){
             Uri selectedImage= data.getData();
             imgp.setImageURI(selectedImage);
+            float aspectRatio = 4.0f / 3.0f;
+            try {
+                InputStream inputStream = getActivity().getContentResolver().openInputStream(selectedImage);
+                Bitmap originalImage = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
+
+                Bitmap resizedImage = resizeImageToAspectRatio(originalImage, aspectRatio);
+                float rotationAngle = 90f;
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotationAngle);
+                Bitmap rotatedImage = Bitmap.createBitmap(originalImage, 0, 0, originalImage.getWidth(), originalImage.getHeight(), matrix, true);
+                imgp.setImageBitmap(rotatedImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     public void Useradd(String ref){

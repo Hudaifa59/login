@@ -11,60 +11,61 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/Postsprofile"
+            android:layout_width="54dp"
+            android:layout_height="22dp"
             android:layout_marginTop="312dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
+            android:gravity="center"
+            android:text="Posts"
+            app:layout_constraintStart_toStartOf="@+id/postsprofilenum"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/profilepic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="129dp"
+            android:layout_height="121dp"
             android:layout_marginTop="63dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
+            tools:src="@drawable/icon" />
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/followingprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="9dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/textView5"
+            android:text="Following"
+            app:layout_constraintBottom_toTopOf="@+id/followersprofilenum"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView2" />
+            app:layout_constraintStart_toEndOf="@+id/followersprofile" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/postsprofilenum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:gravity="center"
             android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/textView2"
+            app:layout_constraintEnd_toStartOf="@+id/followersprofile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/Postsprofile" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/followersprofilenum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintStart_toStartOf="@+id/followersprofile"
+            app:layout_constraintTop_toBottomOf="@+id/followersprofile" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/followingprofilenum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintStart_toStartOf="@+id/followingprofile"
+            app:layout_constraintTop_toBottomOf="@+id/followingprofile" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/minipostrv"
@@ -77,14 +78,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/followersprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            android:text="Followers"
+            app:layout_constraintEnd_toStartOf="@+id/followingprofile"
+            app:layout_constraintStart_toEndOf="@+id/postsprofilenum"
+            app:layout_constraintTop_toTopOf="@+id/Postsprofile" />
 
         <Button
             android:id="@+id/signoutbtn"
@@ -98,5 +99,22 @@
             app:layout_constraintStart_toEndOf="@+id/profilepic"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/usernameprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/nicknameprofile"
+            app:layout_constraintStart_toStartOf="@+id/profilepic" />
+
+        <TextView
+            android:id="@+id/nicknameprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/followersprofilenum"
+            app:layout_constraintStart_toStartOf="@+id/usernameprofile"
+            app:layout_constraintTop_toBottomOf="@+id/profilepic" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -67,7 +67,6 @@ public class  ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHol
         holder.phone.setText(profile.getPhone());
         holder.name.setText(profile.getName());
         holder.gender.setText(profile.getGender());
-        holder.post.setText(String.valueOf(profile.getPosts()));
     }
 
     @Override
