@@ -27,16 +27,16 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
+public class Postsearchadapter extends RecyclerView.Adapter<Postsearchadapter.MyViewHolder> {
 
     Context context;
     private FirebaseServices fbs;
     ArrayList<Post> postArrayList;
-    private Profile profile;
+    private ArrayList<Profile> profile;
     private ArrayList<String> postref;
 
 
-    public PostAdapter(Context context, ArrayList<Post> postArrayList,Profile profile,ArrayList<String> postsref) {
+    public Postsearchadapter(Context context, ArrayList<Post> postArrayList,ArrayList<Profile> profile,ArrayList<String> postsref) {
         this.context = context;
         this.postArrayList = postArrayList;
         this.profile=profile;
@@ -45,14 +45,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     @NonNull
     @Override
-    public PostAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Postsearchadapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(context).inflate(R.layout.post,parent,false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostAdapter.MyViewHolder holder,int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Post post=postArrayList.get(position);
         fbs =FirebaseServices.getInstance();
@@ -72,7 +72,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             }
         });
 
-        StorageReference storageRef1= fbs.getStorage().getInstance().getReference().child(profile.getImage());
+        StorageReference storageRef1= fbs.getStorage().getInstance().getReference().child(profile.get(position).getImage());
 
         storageRef1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -90,8 +90,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.comment.setText(""+ post.getComments().size());
         holder.like.setText(""+post.getLikes().size());
         holder.share.setText(""+post.getShare());
-        holder.username.setText(profile.getName());
-        holder.caption.setText(post.getCaption());holder.like.setGravity(Gravity.CENTER);
+        holder.username.setText(profile.get(position).getName());
+        holder.caption.setText(post.getCaption());
+        holder.like.setGravity(Gravity.CENTER);
         holder.like.setGravity(Gravity.RIGHT);
         holder.share.setGravity(Gravity.RIGHT);
         holder.comment.setGravity(Gravity.RIGHT);
@@ -169,6 +170,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

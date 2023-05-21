@@ -191,7 +191,7 @@ public class UserFrag extends Fragment {
         if(resultCode==RESULT_OK&& data != null){
             Uri selectedImage= data.getData();
             imgp.setImageURI(selectedImage);
-            float aspectRatio = 4.0f / 3.0f;
+            float aspectRatio = 1.0f / 1.0f;
             try {
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(selectedImage);
                 Bitmap originalImage = BitmapFactory.decodeStream(inputStream);
