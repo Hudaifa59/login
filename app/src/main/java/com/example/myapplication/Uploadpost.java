@@ -178,6 +178,9 @@ public class Uploadpost extends Fragment {
                         posts.add(postpath);
                         doc.getReference().update("post", posts)
                                 .addOnSuccessListener(aVoid -> {
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.framMain, new Profilepage(fbs.getAuth().getCurrentUser().getEmail()));
+                                    ft.commit();
                                     System.out.println("ArrayList updated successfully.");
                                 })
                                 .addOnFailureListener(e -> {
