@@ -112,6 +112,13 @@ public class Commentsforpost extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         share=getView().findViewById(R.id.shareclick);
         comment=getView().findViewById(R.id.commentet);
+        backbtn=getView().findViewById(R.id.backcomm);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().popBackStack();
+            }
+        });
         getpost();
         share.setOnClickListener(new View.OnClickListener() {
             @Override

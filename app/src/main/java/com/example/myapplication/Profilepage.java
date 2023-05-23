@@ -118,7 +118,7 @@ public class Profilepage extends Fragment {
         });
         recyclerViewminipost = getActivity().findViewById(R.id.minipostrv);
         recyclerViewminipost.setHasFixedSize(true);
-        recyclerViewminipost.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewminipost.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
         minipostadapter = new Minipostadapter(new ArrayList<String>(),getActivity(),new ArrayList<>(),"",new ArrayList<>());
         recyclerViewminipost.setAdapter(minipostadapter);
         fbs=FirebaseServices.getInstance();

@@ -18,7 +18,8 @@
             android:src="@drawable/back"
             app:layout_constraintBottom_toTopOf="@+id/recycleviewposts"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/purplebutton" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleviewposts"
