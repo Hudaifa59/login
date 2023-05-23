@@ -38,7 +38,7 @@ public class Search extends Fragment {
     ArrayList<User> userArrayList;
     ArrayList<Profile> profiles;
     ArrayList<Profile> profilespo;
-
+    ArrayList<User>userArrayList1;
     ArrayList<Profile> searchArraylistprofiles;
 
     private Postsearchadapter postAdapter;
@@ -124,11 +124,14 @@ public class Search extends Fragment {
                     searchArraylist=new ArrayList<User>();
                     searchArraylistprofiles=new ArrayList<Profile>();
                     for (int i=0;i<profiles.size();i++){
+                        boolean n=false;
                         if (profiles.get(i).getName().contains(s)){
                             searchArraylistprofiles.add(profiles.get(i));
-                            for (int j=i;j<userArrayList.size();j++)
-                                if (userArrayList.get(j).getUsername().contains(profiles.get(i).getName()))
+                            for (int j=0;j<userArrayList.size();j++)
+                                if (userArrayList.get(j).getUsername().contains(profiles.get(i).getName())&&!n) {
                                     searchArraylist.add(userArrayList.get(j));
+                                    n=true;
+                                }
                         }
                     }
                     searchadapter = new Searchadapter(getActivity(),searchArraylist,searchArraylistprofiles);
@@ -224,6 +227,7 @@ public class Search extends Fragment {
                     });
     }
     private void GetUser(String email) {
+        userArrayList1=new ArrayList<User>();
         fbs=FirebaseServices.getInstance();
         fbs.getFire().collection("Users").whereEqualTo("user", email)
                 .get()
@@ -237,7 +241,9 @@ public class Search extends Fragment {
 
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                         String userId = doc.getId();
-                        Getprofile(doc.get("profile").toString());
+                        userArrayList1.add(doc.toObject(User.class));
+                        Getprofile(doc.toObject(User.class).getProfile());
+
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -251,7 +257,21 @@ public class Search extends Fragment {
 
     private void evenonchange() {
         if (postsref.size()==profilespo.size()) {
-            postAdapter = new Postsearchadapter(getActivity(), posts, profilespo, postsref);
+            ArrayList<Profile> profilefinal =new ArrayList<Profile>();
+            for (int i=0;i<posts.size();i++){
+                boolean n = false;
+                for (int j=0;userArrayList1.size()>j;j++) {
+                    if (posts.get(i).getUser().equals(userArrayList1.get(j).getUser())&&!n) {
+                        for (int k = 0; k < profilespo.size(); k++) {
+                            if (profilespo.get(k).getName().equals(userArrayList1.get(j).getUsername()) && !n) {
+                                profilefinal.add(profilespo.get(k));
+                                n = true;
+                            }
+                        }
+                    }
+                }
+            }
+            postAdapter = new Postsearchadapter(getActivity(), posts, profilefinal, postsref);
             recyclerViewprofile.setAdapter(postAdapter);
         }
     }
