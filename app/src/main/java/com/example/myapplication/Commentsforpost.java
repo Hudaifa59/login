@@ -256,7 +256,7 @@ public class Commentsforpost extends Fragment {
 
     private void evenonchange() {
         if (comments.size()==profilespo.size()) {
-            CommentAdapter commentAdapter = new CommentAdapter(getActivity(),comments, profilespo);
+            CommentAdapter commentAdapter = new CommentAdapter(getActivity(),comments, profilespo,compath);
             recyclerView.setAdapter(commentAdapter);
         }
     }
