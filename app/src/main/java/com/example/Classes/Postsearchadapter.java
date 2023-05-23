@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Commentsforpost;
 import com.example.myapplication.Profilepage;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -160,7 +162,8 @@ public class Postsearchadapter extends RecyclerView.Adapter<Postsearchadapter.My
         holder.comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AppCompatActivity activity = (AppCompatActivity) context;
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Commentsforpost(postref.get(position))).addToBackStack(null).commit();
             }
         });
         holder.shares.setOnClickListener(new View.OnClickListener() {

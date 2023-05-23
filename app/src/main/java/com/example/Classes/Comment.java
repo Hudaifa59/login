@@ -5,10 +5,13 @@ import java.util.ArrayList;
 public class Comment {
     private String User;
     private String comment;
-    private int like;
+    private ArrayList<String> like;
     private ArrayList<String> reply;
 
-    public Comment(String user, String comment, int like, ArrayList<String> reply) {
+    public Comment() {
+    }
+
+    public Comment(String user, String comment, ArrayList<String> like, ArrayList<String> reply) {
         User = user;
         this.comment = comment;
         this.like = like;
@@ -19,7 +22,7 @@ public class Comment {
         this.comment = comment;
         this.User=user;
         this.reply=new ArrayList<String>();
-        like=0;
+        like=new ArrayList<String>();
     }
 
     public String getComment() {
@@ -30,11 +33,11 @@ public class Comment {
         this.comment = comment;
     }
 
-    public int getLike() {
+    public ArrayList<String> getLike() {
         return like;
     }
 
-    public void setLike(int like) {
+    public void setLike(ArrayList<String> like) {
         this.like = like;
     }
 
