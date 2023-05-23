@@ -109,9 +109,9 @@ public class Search extends Fragment {
         postsref=new ArrayList<String>();
         profiles=new ArrayList<Profile>();
         profilespo=new ArrayList<Profile>();
+        GetUsers();
         GetPosts();
         searchView=getView().findViewById(R.id.searchviewhome);
-        GetUsers();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -125,10 +125,10 @@ public class Search extends Fragment {
                     searchArraylistprofiles=new ArrayList<Profile>();
                     for (int i=0;i<profiles.size();i++){
                         boolean n=false;
-                        if (profiles.get(i).getName().contains(s)){
+                        if (profiles.get(i).getName().contains(s)&&!n){
                             searchArraylistprofiles.add(profiles.get(i));
                             for (int j=0;j<userArrayList.size();j++)
-                                if (userArrayList.get(j).getUsername().contains(profiles.get(i).getName())&&!n) {
+                                if (userArrayList.get(j).getUsername().equals(profiles.get(i).getName())&&!n) {
                                     searchArraylist.add(userArrayList.get(j));
                                     n=true;
                                 }
@@ -260,15 +260,13 @@ public class Search extends Fragment {
             ArrayList<Profile> profilefinal =new ArrayList<Profile>();
             for (int i=0;i<posts.size();i++){
                 boolean n = false;
-                for (int j=0;userArrayList1.size()>j;j++) {
-                    if (posts.get(i).getUser().equals(userArrayList1.get(j).getUser())&&!n) {
-                        for (int k = 0; k < profilespo.size(); k++) {
-                            if (profilespo.get(k).getName().equals(userArrayList1.get(j).getUsername()) && !n) {
-                                profilefinal.add(profilespo.get(k));
+                for (int j=0;userArrayList.size()>j;j++) {
+                        for (int k = 0; k < profiles.size(); k++) {
+                            if (posts.get(i).getUser().equals(userArrayList.get(j).getUser())&&userArrayList.get(j).getUsername().equals(profiles.get(k).getName()) && !n) {
+                                profilefinal.add(profiles.get(k));
                                 n = true;
                             }
                         }
-                    }
                 }
             }
             postAdapter = new Postsearchadapter(getActivity(), posts, profilefinal, postsref);
