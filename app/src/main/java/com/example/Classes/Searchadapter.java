@@ -8,14 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Postsprofile;
 import com.example.myapplication.Profilepage;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -70,6 +73,13 @@ public class Searchadapter extends RecyclerView.Adapter<Searchadapter.MyViewHold
                 // Handle any errors that occur when downloading the image
             }
         });
+        holder.userclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) context;
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Profilepage(userArrayList.get(position).getUser())).addToBackStack(null).commit();
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -77,6 +87,7 @@ public class Searchadapter extends RecyclerView.Adapter<Searchadapter.MyViewHold
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
+        private LinearLayout userclick;
         private ImageView user;
         private TextView username,nickname;
 
@@ -85,6 +96,7 @@ public class Searchadapter extends RecyclerView.Adapter<Searchadapter.MyViewHold
             user=itemView.findViewById(R.id.profilese);
             username=itemView.findViewById(R.id.usernamese);
             nickname=itemView.findViewById(R.id.nicknamese);
+            userclick=itemView.findViewById(R.id.profileclick);
         }
     }
 }

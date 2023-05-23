@@ -125,8 +125,10 @@ public class Search extends Fragment {
                     searchArraylistprofiles=new ArrayList<Profile>();
                     for (int i=0;i<profiles.size();i++){
                         if (profiles.get(i).getName().contains(s)){
-                            searchArraylist.add(userArrayList.get(i));
                             searchArraylistprofiles.add(profiles.get(i));
+                            for (int j=i;j<userArrayList.size();j++)
+                                if (userArrayList.get(j).getUsername().contains(profiles.get(i).getName()))
+                                    searchArraylist.add(userArrayList.get(j));
                         }
                     }
                     searchadapter = new Searchadapter(getActivity(),searchArraylist,searchArraylistprofiles);
