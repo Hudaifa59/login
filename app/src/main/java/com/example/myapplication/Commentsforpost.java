@@ -26,11 +26,13 @@ import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
 import com.example.Classes.Postsearchadapter;
 import com.example.Classes.Profile;
+import com.example.Classes.Reply;
 import com.example.Classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -46,6 +48,8 @@ public class Commentsforpost extends Fragment {
 
     ArrayList<Profile> profilespo;
     private String path;
+    String pathcomm;
+
     ImageView backbtn;
     FirebaseServices fbs;
     EditText comment;
@@ -129,26 +133,70 @@ public class Commentsforpost extends Fragment {
                     Toast.makeText(getActivity(), "There isn't a text", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Comment comment2 =new Comment(comment1,fbs.getAuth().getCurrentUser().getEmail());
-                fbs.getFire().collection("Comments")
-                        .add(comment2)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Eventonchange(documentReference.getId());
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
+                if(comment.getHint().equals("Reply to the comment")){
+                    Reply comment2 = new Reply(comment1, fbs.getAuth().getCurrentUser().getEmail());
+                    fbs.getFire().collection("Reply")
+                            .add(comment2)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Eventonchangereply(documentReference.getId());
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+                }
+                else {
+                    Comment comment2 = new Comment(comment1, fbs.getAuth().getCurrentUser().getEmail());
+                    fbs.getFire().collection("Comments")
+                            .add(comment2)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Eventonchange(documentReference.getId());
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+                }
             }
         });
     }
+    private void Eventonchangereply(String id) {
+        DocumentReference userRef = fbs.getFire().collection("Comments").document(pathcomm);
+        userRef.get()
+                .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+                    if (documentSnapshot.exists()) {
+                        Comment post =documentSnapshot.toObject(Comment.class);
+                        ArrayList<String> comments=post.getReply();
+                        comments.add(id);
+                        documentSnapshot.getReference().update("reply", comments)
+                                .addOnSuccessListener(aVoid -> {
+                                    System.out.println("ArrayList updated successfully.");
+                                    getpost();
+                                })
+                                .addOnFailureListener(e -> {
+                                    System.out.println("Error updating ArrayList: " + e.getMessage());
+                                });
+                    } else {
+                        System.out.println("User document doesn't exist.");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error retrieving user: " + e.getMessage());
+                });
 
+    }
     private void Eventonchange(String id) {
         DocumentReference userRef = fbs.getFire().collection("Posts").document(path);
         userRef.get()
@@ -161,6 +209,7 @@ public class Commentsforpost extends Fragment {
                                 .addOnSuccessListener(aVoid -> {
                                     System.out.println("ArrayList updated successfully.");
                                     getpost();
+                                    comment.setHint("Your Comment...");
                                 })
                                 .addOnFailureListener(e -> {
                                     System.out.println("Error updating ArrayList: " + e.getMessage());
@@ -256,8 +305,13 @@ public class Commentsforpost extends Fragment {
 
     private void evenonchange() {
         if (comments.size()==profilespo.size()) {
-            CommentAdapter commentAdapter = new CommentAdapter(getActivity(),comments, profilespo,compath);
+            CommentAdapter commentAdapter = new CommentAdapter(getActivity(),comments, profilespo,compath,this);
             recyclerView.setAdapter(commentAdapter);
         }
+    }
+    public void reply(String pathcomm){
+        TextView share=getView().findViewById(R.id.shareclick);
+        comment.setHint("Reply to the comment");
+        this.pathcomm=pathcomm;
     }
 }

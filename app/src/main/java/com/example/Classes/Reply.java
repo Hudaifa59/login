@@ -1,11 +1,16 @@
 package com.example.Classes;
 
+import java.util.ArrayList;
+
 public class Reply {
     private String User;
     private String comment;
-    private int likes;
+    private ArrayList<String> likes;
 
-    public Reply(String user, String comment, int likes) {
+    public Reply() {
+    }
+
+    public Reply(String user, String comment, ArrayList<String> likes) {
         User = user;
         this.comment = comment;
         this.likes = likes;
@@ -14,7 +19,7 @@ public class Reply {
     public Reply(String comment, String user) {
         this.comment = comment;
         this.User=user;
-        this.likes=0;
+        this.likes=new ArrayList<String>();
     }
 
     public String getComment() {
@@ -25,11 +30,11 @@ public class Reply {
         this.comment = comment;
     }
 
-    public int getLikes() {
+    public ArrayList<String> getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(ArrayList<String> likes) {
         this.likes = likes;
     }
 
