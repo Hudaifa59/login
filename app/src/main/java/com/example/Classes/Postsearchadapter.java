@@ -172,6 +172,13 @@ public class Postsearchadapter extends RecyclerView.Adapter<Postsearchadapter.My
 
             }
         });
+        holder.user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) context;
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Profilepage(post.getUser())).addToBackStack(null).commit();
+            }
+        });
     }
 
 

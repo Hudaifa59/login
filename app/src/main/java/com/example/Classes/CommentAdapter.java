@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -139,8 +140,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                             .addOnFailureListener(e -> {
                                 System.out.println("Error retrieving user: " + e.getMessage());
                             });
-
-
                 }
             }
         });
@@ -173,6 +172,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                 getreplies(holder.recyclerView);
             }
         });
+        holder.recyclerView.setHasFixedSize(true);
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
     private void eventonchangelis(RecyclerView recyclerView) {
@@ -185,7 +186,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return comments.size();
-    }
+        }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         private RecyclerView recyclerView;
         private ImageView user,like;

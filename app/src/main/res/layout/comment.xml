@@ -12,7 +12,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="147dp"
             app:layout_constraintBottom_toTopOf="@+id/Likesforcom"
             app:layout_constraintTop_toTopOf="@+id/Likesforcom">
 
@@ -20,9 +20,9 @@
                 android:id="@+id/commentprofile"
                 android:layout_width="0dp"
                 android:layout_height="73dp"
-                android:layout_marginEnd="284dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Likesforcom"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="100dp"
+                app:layout_constraintEnd_toStartOf="@+id/showreply"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/icon" />
@@ -31,6 +31,7 @@
                 android:id="@+id/commentuser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:text="TextView"
                 app:layout_constraintBottom_toTopOf="@+id/commentus"
                 app:layout_constraintStart_toStartOf="@+id/commentus"
@@ -38,56 +39,54 @@
 
             <TextView
                 android:id="@+id/commentus"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="91dp"
-                android:layout_marginEnd="9dp"
+                android:layout_width="275dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginBottom="97dp"
                 android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/showreply"
-                app:layout_constraintEnd_toStartOf="@+id/commentlike"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/commentuser" />
 
             <TextView
                 android:id="@+id/Reply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="2dp"
                 android:text="Reply"
+                app:layout_constraintBottom_toTopOf="@+id/replyrv"
                 app:layout_constraintEnd_toStartOf="@+id/showreply"
                 app:layout_constraintStart_toEndOf="@+id/commentprofile"
-                app:layout_constraintTop_toTopOf="@+id/showreply" />
+                app:layout_constraintTop_toBottomOf="@+id/commentus" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/replyrv"
-                android:layout_width="320dp"
-                android:layout_height="0dp"
+                android:layout_width="319dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="91dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/commentprofile"
-                app:layout_constraintTop_toBottomOf="@+id/Likesforcom" />
+                app:layout_constraintStart_toStartOf="@+id/commentprofile"
+                app:layout_constraintTop_toBottomOf="@+id/showreply" />
 
             <TextView
                 android:id="@+id/showreply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="177dp"
+                android:layout_marginEnd="185dp"
                 android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/replyrv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/Reply" />
+                app:layout_constraintStart_toEndOf="@+id/commentprofile"
+                app:layout_constraintTop_toBottomOf="@+id/commentus" />
 
             <ImageView
                 android:id="@+id/commentlike"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="284dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="19dp"
-                app:layout_constraintBottom_toTopOf="@+id/replyrv"
+                android:layout_width="36dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="9dp"
+                app:layout_constraintBottom_toTopOf="@+id/Likesforcom"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/commentus"
-                app:layout_constraintStart_toStartOf="@+id/commentus"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/heart" />
 
@@ -95,14 +94,11 @@
                 android:id="@+id/Likesforcom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="49dp"
-                android:layout_marginEnd="1dp"
-                android:layout_marginBottom="1dp"
                 android:text="TextView"
                 app:layout_constraintBottom_toTopOf="@+id/replyrv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/commentprofile"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/commentus" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

@@ -1,58 +1,56 @@
 package com.example.Classes;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.bumptech.glide.Glide;
+
 import android.net.Uri;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.myapplication.Postsprofile;
 import com.example.myapplication.Profilepage;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.MyViewHolder> {
-    Context context;
-    FirebaseServices fbs;
-    ArrayList<Profile> profiles;
-    ArrayList<Reply> replies;
-    ArrayList<String> repliespath;
+public class  ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> {
+    private Context context;
+    private FirebaseServices fbs;
+    private ArrayList<Profile> profiles;
+    private ArrayList<Reply> replies;
+    private ArrayList<String> repliespath;
 
-    public ReplyAdapter(Context context, ArrayList<Reply> comments,ArrayList<String> repliespath,ArrayList<Profile> profiles) {
+    public ReplyAdapter(Context context, ArrayList<Reply> comments, ArrayList<String> repliespath, ArrayList<Profile> profiles) {
         this.context=context;
         this.replies=comments;
         this.repliespath=repliespath;
         this.profiles=profiles;
     }
 
-    @NonNull
+
     @Override
-    public ReplyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.reply,parent,false);
-        return new MyViewHolder(v);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.reply, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Reply reply=replies.get(position);
         fbs=FirebaseServices.getInstance();
         StorageReference storageRef= fbs.getStorage().getInstance().getReference().child(profiles.get(position).getImage());
@@ -133,17 +131,26 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.MyViewHolder
                 }
             }
         });
+        holder.user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) context;
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Profilepage(reply.getUser())).addToBackStack(null).commit();
+            }
+        });
     }
+
     @Override
     public int getItemCount() {
         return replies.size();
     }
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private ImageView user,like;
-        private TextView reply,username,likes;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public MyViewHolder(@NonNull View itemView) {
+         ImageView user,like;
+         TextView reply,username,likes;
+
+        public ViewHolder(View itemView) {
             super(itemView);
             user=itemView.findViewById(R.id.replyprofile);
             like=itemView.findViewById(R.id.replylike);
