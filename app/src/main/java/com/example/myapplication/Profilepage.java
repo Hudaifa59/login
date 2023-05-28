@@ -6,15 +6,18 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -43,8 +46,9 @@ import java.util.List;
  */
 public class Profilepage extends Fragment {
 
-    ImageView imgpro;
-    TextView postsnum,following,followers,username,nickname;
+    LinearLayout followbtn;
+    ImageView imgpro,backbtn,followicn;
+    TextView postsnum,following,followers,username,nickname,followtv;
     private ArrayList<String> minipost,posts;
     private List<Post> postsp;
     private User user;
@@ -54,6 +58,7 @@ public class Profilepage extends Fragment {
     private String email;
     private FirebaseServices fbs;
     private Button signoubtn;
+    private boolean update=false;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -234,12 +239,17 @@ public class Profilepage extends Fragment {
     }
 
     private void connect() {
+        ArrayList<String> follower=user.getFollowers();
         postsnum=getView().findViewById(R.id.postsprofilenum);
         following=getView().findViewById(R.id.followingprofilenum);
         followers=getView().findViewById(R.id.followersprofilenum);
         imgpro=getView().findViewById(R.id.profilepic);
         nickname=getView().findViewById(R.id.nicknameprofile);
         username=getView().findViewById(R.id.usernameprofile);
+        backbtn=getView().findViewById(R.id.backbtnprofile);
+        followbtn=getView().findViewById(R.id.FollowBtn);
+        followtv=getView().findViewById(R.id.Followtv);
+        followicn=getView().findViewById(R.id.Followiv);
         StorageReference storageRef= fbs.getStorage().getInstance().getReference().child(profile.getImage());
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -253,11 +263,118 @@ public class Profilepage extends Fragment {
             public void onFailure(@NonNull Exception e) {
                 // Handle any errors that occur when downloading the image
             }
+
         });
+        boolean isfollowed=false;
+        if(follower.size()!=0){
+            for (int i=0;i<follower.size();i++)
+                if(follower.get(i).equals(fbs.getAuth().getCurrentUser().getEmail()))isfollowed=true;
+            if(isfollowed){
+                followtv.setText("Following");
+                followicn.setImageResource(R.drawable.following);
+            }
+
+        }
+        else {
+            followtv.setText("Follow");
+            followicn.setImageResource(R.drawable.follow);
+        }
+        followtv.setGravity(Gravity.CENTER);
+        if (!update) {
+            if (email.equals(fbs.getAuth().getCurrentUser().getEmail())) {
+                ViewGroup parentView = (ViewGroup) followbtn.getParent();
+                parentView.removeView(followbtn);
+                followbtn.setVisibility(View.GONE);
+                parentView = (ViewGroup) backbtn.getParent();
+                parentView.removeView(backbtn);
+                backbtn.setVisibility(View.GONE);
+            } else {
+                ViewGroup parentView = (ViewGroup) signoubtn.getParent();
+                parentView.removeView(signoubtn);
+                signoubtn.setVisibility(View.GONE);
+            }
+        }
         postsnum.setText(user.getPost().size()+"");
+        postsnum.setGravity(Gravity.CENTER);
         followers.setText(user.getFollowers().size()+"");
+        followers.setGravity(Gravity.CENTER);
         following.setText(user.getFollowing().size()+"");
+        following.setGravity(Gravity.CENTER);
         nickname.setText(profile.getNickname());
         username.setText(profile.getName());
+        followbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (followtv.getText().toString().equals("Following")){
+                    fbs.getFire().collection("Users").whereEqualTo("user", email)
+                            .get()
+                            .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                                if (querySnapshot.isEmpty()) {
+                                    System.out.println("No users found.");
+                                    return;
+                                }
+
+                                System.out.println("Number of users: " + querySnapshot.size());
+
+                                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                                    String userId = doc.getId();
+                                    user=doc.toObject(User.class);
+                                    ArrayList<String> followerss=user.getFollowers();
+                                    followerss.remove(fbs.getAuth().getCurrentUser().getEmail());
+                                    doc.getReference().update("followers", followerss)
+                                            .addOnSuccessListener(aVoid -> {
+                                                update=true;
+                                                GetUser(email);
+                                                System.out.println("ArrayList updated successfully.");
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                System.out.println("Error updating ArrayList: " + e.getMessage());
+                                            });
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                System.out.println("Error retrieving users: " + e.getMessage());
+                            });
+                }
+                else
+                {
+                    fbs.getFire().collection("Users").whereEqualTo("user", email)
+                            .get()
+                            .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                                if (querySnapshot.isEmpty()) {
+                                    System.out.println("No users found.");
+                                    return;
+                                }
+
+                                System.out.println("Number of users: " + querySnapshot.size());
+
+                                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                                    String userId = doc.getId();
+                                    user=doc.toObject(User.class);
+                                    ArrayList<String> followerss=user.getFollowers();
+                                    followerss.add(fbs.getAuth().getCurrentUser().getEmail());
+                                    doc.getReference().update("followers", followerss)
+                                            .addOnSuccessListener(aVoid -> {
+                                                update=true;
+                                                GetUser(email);
+                                                System.out.println("ArrayList updated successfully.");
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                System.out.println("Error updating ArrayList: " + e.getMessage());
+                                            });
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                System.out.println("Error retrieving users: " + e.getMessage());
+                            });
+                }
+            }
+        });
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().popBackStack();
+            }
+        });
     }
 }

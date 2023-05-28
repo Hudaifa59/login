@@ -24,11 +24,13 @@
             android:id="@+id/profilepic"
             android:layout_width="129dp"
             android:layout_height="121dp"
-            android:layout_marginTop="63dp"
+            android:layout_marginTop="60dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/icon" />
+
         <TextView
             android:id="@+id/followingprofile"
             android:layout_width="wrap_content"
@@ -96,8 +98,10 @@
             android:text="Signout"
             app:layout_constraintBottom_toBottomOf="@+id/profilepic"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/profilepic"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/usernameprofile"
@@ -116,5 +120,41 @@
             app:layout_constraintBottom_toTopOf="@+id/followersprofilenum"
             app:layout_constraintStart_toStartOf="@+id/usernameprofile"
             app:layout_constraintTop_toBottomOf="@+id/profilepic" />
+
+        <LinearLayout
+            android:id="@+id/FollowBtn"
+            android:layout_width="133dp"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.265">
+
+            <ImageView
+                android:id="@+id/Followiv"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/follow" />
+
+            <TextView
+                android:id="@+id/Followtv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/backbtnprofile"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:src="@drawable/purplebutton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
