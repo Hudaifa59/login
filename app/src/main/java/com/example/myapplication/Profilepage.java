@@ -335,6 +335,36 @@ public class Profilepage extends Fragment {
                             .addOnFailureListener(e -> {
                                 System.out.println("Error retrieving users: " + e.getMessage());
                             });
+                    fbs.getFire().collection("Users").whereEqualTo("user", fbs.getAuth().getCurrentUser().getEmail())
+                            .get()
+                            .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                                if (querySnapshot.isEmpty()) {
+                                    System.out.println("No users found.");
+                                    return;
+                                }
+
+                                System.out.println("Number of users: " + querySnapshot.size());
+
+                                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                                    String userId = doc.getId();
+                                    user=doc.toObject(User.class);
+                                    ArrayList<String> followerss=user.getFollowing();
+                                    followerss.remove(email);
+                                    doc.getReference().update("following", followerss)
+                                            .addOnSuccessListener(aVoid -> {
+                                                update=true;
+                                                GetUser(email);
+                                                System.out.println("ArrayList updated successfully.");
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                System.out.println("Error updating ArrayList: " + e.getMessage());
+                                            });
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                System.out.println("Error retrieving users: " + e.getMessage());
+                            });
+
                 }
                 else
                 {
@@ -355,6 +385,33 @@ public class Profilepage extends Fragment {
                                     followerss.add(fbs.getAuth().getCurrentUser().getEmail());
                                     doc.getReference().update("followers", followerss)
                                             .addOnSuccessListener(aVoid -> {
+                                                System.out.println("ArrayList updated successfully.");
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                System.out.println("Error updating ArrayList: " + e.getMessage());
+                                            });
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                System.out.println("Error retrieving users: " + e.getMessage());
+                            });
+                    fbs.getFire().collection("Users").whereEqualTo("user", fbs.getAuth().getCurrentUser().getEmail())
+                            .get()
+                            .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                                if (querySnapshot.isEmpty()) {
+                                    System.out.println("No users found.");
+                                    return;
+                                }
+
+                                System.out.println("Number of users: " + querySnapshot.size());
+
+                                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                                    String userId = doc.getId();
+                                    user=doc.toObject(User.class);
+                                    ArrayList<String> followerss=user.getFollowing();
+                                    followerss.add(email);
+                                    doc.getReference().update("following", followerss)
+                                            .addOnSuccessListener(aVoid -> {
                                                 update=true;
                                                 GetUser(email);
                                                 System.out.println("ArrayList updated successfully.");
@@ -367,6 +424,7 @@ public class Profilepage extends Fragment {
                             .addOnFailureListener(e -> {
                                 System.out.println("Error retrieving users: " + e.getMessage());
                             });
+
                 }
             }
         });
