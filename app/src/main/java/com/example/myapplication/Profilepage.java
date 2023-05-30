@@ -235,7 +235,6 @@ public class Profilepage extends Fragment {
                 .addOnFailureListener(e -> {
                     System.out.println("Error retrieving user: " + e.getMessage());
                 });
-
     }
 
     private void connect() {

@@ -89,7 +89,7 @@ public class Home extends Fragment {
         miniicon.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.homep:
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Profiles()).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new HomePage()).commit();
                     return true;
                 case R.id.uppostic:
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Uploadpost()).commit();
