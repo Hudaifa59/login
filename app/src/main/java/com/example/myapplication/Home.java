@@ -100,6 +100,9 @@ public class Home extends Fragment {
                 case R.id.searchp:
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Search()).commit();
                     return true;
+                case R.id.solarsystemp:
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new SolarSystem()).commit();
+                    return true;
                 default:
                     return false;
             }
