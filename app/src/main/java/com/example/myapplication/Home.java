@@ -107,5 +107,6 @@ public class Home extends Fragment {
                     return false;
             }
         });
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new HomePage()).commit();
     }
 }
