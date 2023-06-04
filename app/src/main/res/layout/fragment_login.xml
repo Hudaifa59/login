@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,11 +25,15 @@
             android:id="@+id/EmailLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="138dp"
+            android:layout_marginTop="228dp"
+            android:backgroundTint="#a020f0"
             android:ems="10"
             android:hint="user......"
             android:inputType="textEmailAddress"
+            android:textColor="#a020f0"
+            android:textColorHint="#a020f0"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,9 +42,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
+            android:backgroundTint="#A020F0"
             android:ems="10"
             android:hint="Password......."
             android:inputType="textPassword"
+            android:textColor="#a020f0"
+            android:textColorHint="#a020f0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EmailLogin" />
@@ -58,6 +66,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:typeface="monospace"
+            android:textColor="#a020f0"
             app:layout_constraintStart_toStartOf="@+id/LoginMain"
             app:layout_constraintTop_toBottomOf="@+id/LoginMain" />
 
@@ -67,9 +76,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:text="Forgot password "
-            android:textColor="#000000"
+            android:textColor="#a020f0"
             app:layout_constraintStart_toStartOf="@+id/PasswordLogin"
             app:layout_constraintTop_toBottomOf="@+id/PasswordLogin" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="177dp"
+            android:layout_height="190dp"
+            android:src="@drawable/cosmos"
+            app:layout_constraintBottom_toTopOf="@+id/EmailLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

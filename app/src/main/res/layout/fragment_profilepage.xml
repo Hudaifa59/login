@@ -17,6 +17,7 @@
             android:layout_marginTop="312dp"
             android:gravity="center"
             android:text="Posts"
+            android:textColor="#a020f0"
             app:layout_constraintStart_toStartOf="@+id/postsprofilenum"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="9dp"
             android:text="Following"
+            android:textColor="#a020f0"
             app:layout_constraintBottom_toTopOf="@+id/followersprofilenum"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/followersprofile" />
@@ -48,6 +50,7 @@
             android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="TextView"
+            android:textColor="#a020f0"
             app:layout_constraintEnd_toStartOf="@+id/followersprofile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Postsprofile" />
@@ -58,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:text="TextView"
+            android:textColor="#a020f0"
             app:layout_constraintStart_toStartOf="@+id/followersprofile"
             app:layout_constraintTop_toBottomOf="@+id/followersprofile" />
 
@@ -66,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textColor="#a020f0"
             app:layout_constraintStart_toStartOf="@+id/followingprofile"
             app:layout_constraintTop_toBottomOf="@+id/followingprofile" />
 
@@ -85,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
             android:text="Followers"
+            android:textColor="#a020f0"
             app:layout_constraintEnd_toStartOf="@+id/followingprofile"
             app:layout_constraintStart_toEndOf="@+id/postsprofilenum"
             app:layout_constraintTop_toTopOf="@+id/Postsprofile" />
@@ -109,6 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
             android:text="TextView"
+            android:textColor="#a020f0"
             app:layout_constraintBottom_toTopOf="@+id/nicknameprofile"
             app:layout_constraintStart_toStartOf="@+id/profilepic" />
 
@@ -117,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textColor="#a020f0"
             app:layout_constraintBottom_toTopOf="@+id/followersprofilenum"
             app:layout_constraintStart_toStartOf="@+id/usernameprofile"
             app:layout_constraintTop_toBottomOf="@+id/profilepic" />
@@ -146,7 +154,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="#a020f0" />
         </LinearLayout>
 
         <ImageView

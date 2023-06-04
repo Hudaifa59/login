@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     xmlns:design="http://schemas.android.com/apk/res-auto"
     tools:context=".Home">
 
@@ -26,6 +27,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="66dp"
+            android:background="@color/black"
+            design:itemIconTint="@color/purple_500"
+            design:itemTextColor="@color/purple_500"
             design:layout_constraintBottom_toBottomOf="parent"
             design:layout_constraintEnd_toEndOf="parent"
             design:layout_constraintStart_toStartOf="parent"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".Forgotpass">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,16 +20,21 @@
             android:text="send email"
             app:layout_constraintStart_toStartOf="@+id/sendemailfp"
             app:layout_constraintTop_toBottomOf="@+id/sendemailfp"
-            app:strokeColor="#530909" />
+            android:backgroundTint="#a020f0"
+            android:shadowColor="#a020f0"/>
 
         <EditText
             android:id="@+id/sendemailfp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="250dp"
+            android:backgroundTint="#a020f0"
+            android:drawableTint="#A020F0"
             android:ems="10"
             android:hint="Enter your email"
             android:inputType="textEmailAddress"
+            android:textColor="#a020f0"
+            android:textColorHint="#a020f0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

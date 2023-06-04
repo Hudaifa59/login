@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,6 +44,7 @@
                 android:layout_marginStart="33dp"
                 android:layout_marginBottom="16dp"
                 android:text="TextView"
+                android:textColor="#a020f0"
                 app:layout_constraintBottom_toBottomOf="@+id/ivpostuser"
                 app:layout_constraintStart_toEndOf="@+id/ivpostuser" />
 
@@ -82,9 +83,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="85dp"
-                android:text="TextView"
                 android:gravity="center_horizontal"
+                android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="#a020f0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/ivlikepost" />
 
@@ -93,9 +95,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
-                android:text="TextView"
                 android:gravity="center_horizontal"
+                android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="#a020f0"
                 app:layout_constraintStart_toStartOf="@+id/ivcommentpost"
                 app:layout_constraintTop_toBottomOf="@+id/ivcommentpost" />
 
@@ -105,9 +108,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="208dp"
                 android:layout_marginBottom="1dp"
-                android:text="TextView"
                 android:gravity="center_horizontal"
+                android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="#a020f0"
                 app:layout_constraintBottom_toBottomOf="@+id/tvcommentspost"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivcommentpost" />
@@ -118,6 +122,8 @@
                 android:layout_height="59dp"
                 android:layout_marginBottom="158dp"
                 android:text="TextView"
+                android:textColor="#a020f0"
+                android:textColorHighlight="#a020f0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
