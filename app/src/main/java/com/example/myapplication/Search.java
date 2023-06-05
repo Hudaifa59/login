@@ -125,7 +125,7 @@ public class Search extends Fragment {
                     searchArraylistprofiles=new ArrayList<Profile>();
                     for (int i=0;i<profiles.size();i++){
                         boolean n=false;
-                        if (profiles.get(i).getName().contains(s)&&!n){
+                        if (profiles.get(i).getName().toUpperCase().contains(s.toUpperCase())&&!n){
                             searchArraylistprofiles.add(profiles.get(i));
                             for (int j=0;j<userArrayList.size();j++)
                                 if (userArrayList.get(j).getUsername().equals(profiles.get(i).getName())&&!n) {

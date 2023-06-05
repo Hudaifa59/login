@@ -14,13 +14,11 @@
             android:id="@+id/CaptionupTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="440dp"
             android:text="Caption:"
             android:textColor="#a020f0"
             app:layout_constraintBottom_toTopOf="@+id/ETcaptionup"
             app:layout_constraintStart_toStartOf="@+id/ETcaptionup"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/Uploadiv" />
 
         <EditText
             android:id="@+id/ETcaptionup"
@@ -28,23 +26,22 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="114dp"
             android:backgroundTint="#a020f0"
             android:ems="10"
             android:hint="Caption"
             android:inputType="text"
             android:textColorHint="#a020f0"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/uploadbtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Uploadiv" />
+            app:layout_constraintTop_toBottomOf="@+id/CaptionupTV" />
 
         <Button
             android:id="@+id/uploadbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="146dp"
-            android:layout_marginBottom="66dp"
+            android:layout_marginStart="144dp"
+            android:layout_marginBottom="37dp"
             android:text="Upload"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,11 +49,12 @@
 
         <ImageView
             android:id="@+id/Uploadiv"
-            android:layout_width="413dp"
-            android:layout_height="446dp"
-            android:layout_marginBottom="35dp"
+            android:layout_width="402dp"
+            android:layout_height="484dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="13dp"
             android:src="@drawable/post"
-            app:layout_constraintBottom_toTopOf="@+id/ETcaptionup"
+            app:layout_constraintBottom_toTopOf="@+id/CaptionupTV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

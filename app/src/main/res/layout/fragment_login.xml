@@ -15,9 +15,10 @@
             android:id="@+id/LoginMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="56dp"
             android:text="Login"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/forgotPasswordtv" />
 
@@ -25,15 +26,15 @@
             android:id="@+id/EmailLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="228dp"
+            android:layout_marginTop="276dp"
             android:backgroundTint="#a020f0"
+            android:drawableLeft="@drawable/userlogin"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:hint="Email......"
             android:inputType="textEmailAddress"
             android:textColor="#a020f0"
             android:textColorHint="#a020f0"
-            android:drawableLeft="@drawable/userlogin"
-            android:drawablePadding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +93,8 @@
             app:layout_constraintBottom_toTopOf="@+id/EmailLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

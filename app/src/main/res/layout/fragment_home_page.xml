@@ -14,11 +14,38 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/PostsHome"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="684dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
             android:background="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="46dp"
+            android:layout_height="47dp"
+            android:src="@drawable/cosomoicon"
+            app:layout_constraintBottom_toTopOf="@+id/PostsHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="182dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="1dp"
+            android:src="@drawable/cosomostitle"
+            app:layout_constraintBottom_toTopOf="@+id/PostsHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

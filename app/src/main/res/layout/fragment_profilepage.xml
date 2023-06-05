@@ -26,6 +26,8 @@
             android:layout_width="129dp"
             android:layout_height="121dp"
             android:layout_marginTop="60dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toTopOf="@+id/FollowBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
@@ -113,11 +115,13 @@
             android:id="@+id/usernameprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
+            android:layout_marginTop="2dp"
             android:text="TextView"
             android:textColor="#a020f0"
             app:layout_constraintBottom_toTopOf="@+id/nicknameprofile"
-            app:layout_constraintStart_toStartOf="@+id/profilepic" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FollowBtn" />
 
         <TextView
             android:id="@+id/nicknameprofile"

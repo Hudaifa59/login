@@ -33,6 +33,8 @@ import com.example.Classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -56,6 +58,7 @@ public class UserFrag extends Fragment {
     private String pfpath;
     private User us;
     private Bitmap Image;
+    boolean h;
     private Profile pf;
     private FirebaseServices fbs;
     private Button btndone;
@@ -134,35 +137,61 @@ public class UserFrag extends Fragment {
         btndone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone=ephone.getText().toString();
-                if (enick.getText().toString().isEmpty() || ename.getText().toString().isEmpty() || gender.getSelectedItem().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), "There are some fields missing", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (ephone.getText().toString().isEmpty())
-                    phone="";
-                String path=UploadImageToFirebase();
-                if(path==null)return;
-                pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,path);
-                fbs.getFire().collection("Profiles")
-                        .add(pf)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                pfpath=documentReference.getId();
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                Useradd(pfpath);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
-
+                Check();
             }
         });
+    }
+
+    private void gotoadd() {
+        String phone=ephone.getText().toString();
+        if (enick.getText().toString().isEmpty() || ename.getText().toString().isEmpty() || gender.getSelectedItem().toString().isEmpty()) {
+            Toast.makeText(getActivity(), "There are some fields missing", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (ephone.getText().toString().isEmpty())
+            phone="";
+
+        String path=UploadImageToFirebase();
+        if(path==null)return;
+        pf=new Profile(enick.getText().toString(),ename.getText().toString(),gender.getSelectedItem().toString(),phone,path);
+        fbs.getFire().collection("Profiles")
+                .add(pf)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        pfpath=documentReference.getId();
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Useradd(pfpath);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+
+
+    private void Check() {
+        fbs.getFire().collection("Users").whereEqualTo("username", ename.getText().toString())
+            .get()
+            .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
+                if (querySnapshot.isEmpty()) {
+                    System.out.println("No users found.");
+                    gotoadd();
+                }
+                else {
+                    Toast.makeText(getActivity(), "This username is already used", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                System.out.println("Number of users: " + querySnapshot.size());
+                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                }
+            })
+            .addOnFailureListener(e -> {
+                System.out.println("Error retrieving users: " + e.getMessage());
+            });
     }
 
     private String UploadImageToFirebase(){
@@ -198,7 +227,7 @@ public class UserFrag extends Fragment {
                 inputStream.close();
 
                 Bitmap resizedImage = resizeImageToAspectRatio(originalImage, aspectRatio);
-                float rotationAngle = 90f;
+                float rotationAngle = 0f;
                 Matrix matrix = new Matrix();
                 matrix.postRotate(rotationAngle);
                 Bitmap rotatedImage = Bitmap.createBitmap(originalImage, 0, 0, originalImage.getWidth(), originalImage.getHeight(), matrix, true);
