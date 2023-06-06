@@ -220,21 +220,6 @@ public class UserFrag extends Fragment {
         if(resultCode==RESULT_OK&& data != null){
             Uri selectedImage= data.getData();
             imgp.setImageURI(selectedImage);
-            float aspectRatio = 1.0f / 1.0f;
-            try {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(selectedImage);
-                Bitmap originalImage = BitmapFactory.decodeStream(inputStream);
-                inputStream.close();
-
-                Bitmap resizedImage = resizeImageToAspectRatio(originalImage, aspectRatio);
-                float rotationAngle = 0f;
-                Matrix matrix = new Matrix();
-                matrix.postRotate(rotationAngle);
-                Bitmap rotatedImage = Bitmap.createBitmap(originalImage, 0, 0, originalImage.getWidth(), originalImage.getHeight(), matrix, true);
-                imgp.setImageBitmap(rotatedImage);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
     public void Useradd(String ref){

@@ -86,6 +86,7 @@ public class Home extends Fragment {
         fbs=FirebaseServices.getInstance();
         fm=getActivity().findViewById(R.id.framehome);
         miniicon = getActivity().findViewById(R.id.navbarhome);
+        if(miniicon.getSelectedItemId()==R.id.homep)getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new HomePage()).commit();
         miniicon.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.homep:
@@ -107,6 +108,5 @@ public class Home extends Fragment {
                     return false;
             }
         });
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new HomePage()).commit();
     }
 }

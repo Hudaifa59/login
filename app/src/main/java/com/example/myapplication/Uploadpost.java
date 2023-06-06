@@ -125,7 +125,7 @@ public class Uploadpost extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 3);
+                startActivityForResult(intent, 123);
             }
          });
         uploadbtn.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +170,6 @@ public class Uploadpost extends Fragment {
                         System.out.println("No users found.");
                         return;
                     }
-
                     System.out.println("Number of users: " + querySnapshot.size());
 
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
@@ -180,7 +179,7 @@ public class Uploadpost extends Fragment {
                         doc.getReference().update("post", posts)
                                 .addOnSuccessListener(aVoid -> {
                                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                    ft.replace(R.id.framMain, new Profilepage(fbs.getAuth().getCurrentUser().getEmail()));
+                                    ft.replace(R.id.framehome, new Profilepage(fbs.getAuth().getCurrentUser().getEmail()));
                                     ft.commit();
                                     System.out.println("ArrayList updated successfully.");
                                 })
@@ -218,24 +217,10 @@ public class Uploadpost extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK&& data != null){
-            Uri selectedImage= data.getData();
-            ivpost.setImageURI(selectedImage);
-            float aspectRatio = 4.0f / 3.0f;
-            try {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(selectedImage);
-                Bitmap originalImage = BitmapFactory.decodeStream(inputStream);
-                inputStream.close();
-
-                Bitmap resizedImage = resizeImageToAspectRatio(originalImage, aspectRatio);
-                float rotationAngle = 90f;
-                Matrix matrix = new Matrix();
-                matrix.postRotate(rotationAngle);
-                Bitmap rotatedImage = Bitmap.createBitmap(originalImage, 0, 0, originalImage.getWidth(), originalImage.getHeight(), matrix, true);
-                ivpost.setImageBitmap(rotatedImage);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (requestCode == 123 && resultCode == RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            ivpost.setImageURI(selectedImageUri);
         }
     }
+
 }

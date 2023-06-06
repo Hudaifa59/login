@@ -139,6 +139,7 @@ public class SignUp extends Fragment {
                 // check with confirm
                 if(!confirmpass.equals(pass)){
                     Toast.makeText(getActivity(), "The passwords not matching!!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 // login
                 fbs.getAuth().createUserWithEmailAndPassword(usr, pass)
