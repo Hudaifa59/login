@@ -85,7 +85,7 @@ public class  ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder>
                                 if (documentSnapshot.exists()) {
                                     ArrayList<String> likes=replies.get(position).getLikes();
                                     likes.remove(fbs.getAuth().getCurrentUser().getEmail());
-                                    documentSnapshot.getReference().update("like", likes)
+                                    documentSnapshot.getReference().update("likes", likes)
                                             .addOnSuccessListener(aVoid -> {
                                                 System.out.println("ArrayList updated successfully.");
                                                 holder.like.setImageResource(R.drawable.heart);
@@ -106,11 +106,10 @@ public class  ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder>
                     DocumentReference userRef = fbs.getFire().collection("Reply").document(repliespath.get(position));
                     userRef.get()
                             .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
-
                                 if (documentSnapshot.exists()) {
                                     ArrayList<String> likes=replies.get(position).getLikes();
                                     likes.add(fbs.getAuth().getCurrentUser().getEmail());
-                                    documentSnapshot.getReference().update("like", likes)
+                                    documentSnapshot.getReference().update("likes", likes)
                                             .addOnSuccessListener(aVoid -> {
                                                 System.out.println("ArrayList updated successfully.");
                                                 holder.like.setImageResource(R.drawable.filledheart);

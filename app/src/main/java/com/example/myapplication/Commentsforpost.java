@@ -140,6 +140,7 @@ public class Commentsforpost extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
+                                    comment.setText(""); // Clear the text
                                     Eventonchangereply(documentReference.getId());
                                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                 }
@@ -158,6 +159,7 @@ public class Commentsforpost extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
+                                    comment.setText("");
                                     Eventonchange(documentReference.getId());
                                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                 }

@@ -186,7 +186,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return comments.size();
-        }
+    }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         private RecyclerView recyclerView;
         private ImageView user,like;

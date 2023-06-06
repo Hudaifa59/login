@@ -144,6 +144,7 @@ public class Uploadpost extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
+                                    etcaption.setText("");
                                     String postpath=documentReference.getId();
                                     Useradd(postpath);
                                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
