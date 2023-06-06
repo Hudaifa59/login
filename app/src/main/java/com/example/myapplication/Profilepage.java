@@ -4,35 +4,29 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.Classes.FirebaseServices;
-import com.example.Classes.Minipostadapter;
+import com.example.Adapters.Minipostadapter;
 import com.example.Classes.Post;
 import com.example.Classes.Profile;
-import com.example.Classes.ProfileAdapter;
 import com.example.Classes.User;
+import com.example.Main.LoginFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
@@ -57,7 +51,7 @@ public class Profilepage extends Fragment {
     private Profile profile;
     private String email;
     private FirebaseServices fbs;
-    private Button signoubtn;
+    private TextView signoubtn;
     private boolean update=false;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -113,7 +107,7 @@ public class Profilepage extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        signoubtn=getView().findViewById(R.id.signoutbtn);
+        signoubtn=getView().findViewById(R.id.Signoutbtn);
         signoubtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

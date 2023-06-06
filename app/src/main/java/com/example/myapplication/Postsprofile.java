@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
-import com.example.Classes.PostAdapter;
+import com.example.Adapters.PostAdapter;
 import com.example.Classes.Profile;
-import com.example.Classes.ProfileAdapter;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;

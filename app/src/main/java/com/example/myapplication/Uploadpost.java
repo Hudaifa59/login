@@ -3,13 +3,8 @@ package com.example.myapplication;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
-import static com.example.myapplication.MainActivity.resizeImageToAspectRatio;
-import static com.google.android.material.color.utilities.MaterialDynamicColors.error;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,21 +21,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
-import com.example.Classes.Profile;
-import com.example.Classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -48,8 +34,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -66,6 +50,7 @@ public class Uploadpost extends Fragment {
     private Button uploadbtn;
     private Post pst;
 
+    private boolean isphoto=false;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -134,6 +119,10 @@ public class Uploadpost extends Fragment {
                 String caption=etcaption.getText().toString();
                 if (etcaption.getText().toString().isEmpty()) {
                     Toast.makeText(getActivity(), "There are some fields missing", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isphoto){
+                    Toast.makeText(getActivity(), "Add a picture first", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 String path=UploadImageToFirebase();
@@ -220,6 +209,7 @@ public class Uploadpost extends Fragment {
         if (requestCode == 123 && resultCode == RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             ivpost.setImageURI(selectedImageUri);
+            isphoto=true;
         }
     }
 

@@ -5,7 +5,7 @@
     android:id="@+id/signup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUp"
+    tools:context="com.example.Main.SignUp"
     android:background="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,14 +18,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="90dp"
             android:layout_marginTop="72dp"
-            android:ems="10"
             android:backgroundTint="#A020F0"
-            android:textColor="#a020f0"
             android:drawableLeft="@drawable/lock"
             android:drawablePadding="10dp"
-            android:textColorHint="#a020f0"
+            android:ems="10"
             android:hint="Confirm password"
             android:inputType="textPassword"
+            android:textColor="#a020f0"
+            android:textColorHint="#a020f0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/supassword" />
 
@@ -34,14 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="74dp"
-            android:ems="10"
             android:backgroundTint="#A020F0"
-            android:textColor="#a020f0"
-            android:textColorHint="#a020f0"
-            android:hint="Password"
             android:drawableLeft="@drawable/lock"
             android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Password"
             android:inputType="textPassword"
+            android:textColor="#a020f0"
+            android:textColorHint="#a020f0"
             app:layout_constraintEnd_toEndOf="@+id/Confirmsu"
             app:layout_constraintStart_toStartOf="@+id/Confirmsu"
             app:layout_constraintTop_toBottomOf="@+id/EtEmail" />
@@ -50,7 +50,7 @@
             android:id="@+id/EtEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="152dp"
+            android:layout_marginTop="224dp"
             android:backgroundTint="#A020F0"
             android:drawableLeft="@drawable/userlogin"
             android:drawablePadding="10dp"
@@ -78,10 +78,20 @@
             android:id="@+id/bactoLogin"
             android:layout_width="46dp"
             android:layout_height="42dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="44dp"
             android:src="@drawable/back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/purplebutton" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="114dp"
+            android:layout_height="132dp"
+            android:src="@drawable/exam"
+            app:layout_constraintBottom_toTopOf="@+id/EtEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -1,7 +1,6 @@
-package com.example.Classes;
+package com.example.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.bumptech.glide.Glide;
 
@@ -15,9 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.Classes.FirebaseServices;
+import com.example.Classes.Post;
 import com.example.myapplication.Postsprofile;
 import com.example.myapplication.R;
-import com.example.myapplication.Postshome;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;

@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
-import com.example.Classes.Postsearchadapter;
+import com.example.Adapters.Postsearchadapter;
 import com.example.Classes.Profile;
-import com.example.Classes.Searchadapter;
 import com.example.Classes.User;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;

@@ -1,18 +1,19 @@
-package com.example.myapplication;
+package com.example.Main;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.example.Classes.FirebaseServices;
+import com.example.Main.LoginFragment;
+import com.example.Main.UserFrag;
+import com.example.myapplication.Home;
+import com.example.myapplication.R;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
 

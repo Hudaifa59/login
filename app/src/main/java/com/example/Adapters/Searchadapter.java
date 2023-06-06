@@ -1,9 +1,7 @@
-package com.example.Classes;
+package com.example.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +12,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Postsprofile;
+import com.example.Classes.FirebaseServices;
+import com.example.Classes.Profile;
+import com.example.Classes.User;
 import com.example.myapplication.Profilepage;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;

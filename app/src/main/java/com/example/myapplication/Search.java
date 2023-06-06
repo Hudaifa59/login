@@ -14,11 +14,9 @@ import android.widget.SearchView;
 
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
-import com.example.Classes.PostAdapter;
-import com.example.Classes.Postsearchadapter;
+import com.example.Adapters.Postsearchadapter;
 import com.example.Classes.Profile;
-import com.example.Classes.ProfileAdapter;
-import com.example.Classes.Searchadapter;
+import com.example.Adapters.Searchadapter;
 import com.example.Classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

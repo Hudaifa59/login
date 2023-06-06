@@ -1,15 +1,10 @@
-package com.example.myapplication;
+package com.example.Main;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
-import static com.example.myapplication.MainActivity.resizeImageToAspectRatio;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +25,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.Classes.User;
+import com.example.myapplication.Home;
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,9 +36,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 

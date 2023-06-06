@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.Main;
 
 import android.os.Bundle;
 
@@ -11,26 +11,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 
 import com.example.Classes.FirebaseServices;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
+ * Use the {@link Forgotpass#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class Forgotpass extends Fragment {
 
+    private ImageView img;
     private FirebaseServices fbs;
-    private EditText user,password;
-    private Button btn,userbt;
-    private TextView fp,su;
+    private Button btn;
+    private EditText emailfp;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,7 +40,7 @@ public class LoginFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LoginFragment() {
+    public Forgotpass() {
         // Required empty public constructor
     }
 
@@ -50,11 +50,11 @@ public class LoginFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
+     * @return A new instance of fragment Forgotpass.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static Forgotpass newInstance(String param1, String param2) {
+        Forgotpass fragment = new Forgotpass();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,66 +72,52 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
-        connect();
+        connectcomp();
     }
 
-    private void connect() {
-        user=getView().findViewById(R.id.EmailLogin);
-        password=getView().findViewById(R.id.PasswordLogin);
-        btn=getView().findViewById(R.id.LoginMain);
-        fp=getView().findViewById(R.id.forgotPasswordtv);
-        su=getView().findViewById(R.id.Signuptv);
-        fbs = FirebaseServices.getInstance();
-        fp.setOnClickListener(new View.OnClickListener() {
+    private void connectcomp() {
+        fbs=FirebaseServices.getInstance();
+        btn=getView().findViewById(R.id.sendemail);
+        emailfp=getView().findViewById(R.id.sendemailfp);
+        img=getView().findViewById(R.id.backtolog);
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framMain, new Forgotpass());
+                ft.replace(R.id.framMain, new LoginFragment());
                 ft.commit();
             }
         });
-        su.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.framMain, new SignUp());
-                ft.commit();
-            }
-        });
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String pass=password.getText().toString();
-                String usr=user.getText().toString();
-                if (pass.isEmpty()||usr.isEmpty()){
+                String email=emailfp.getText().toString();
+                if (email.isEmpty()){
                     Toast.makeText(getActivity(), "There is something missing!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                fbs.getAuth().signInWithEmailAndPassword(usr, pass)
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                fbs.getAuth().sendPasswordResetEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+                            public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                    ft.replace(R.id.framMain,new Home());
-                                    ft.commit();
+                                    Toast.makeText(getActivity(), "Check your email", Toast.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    return;
+                                    Toast.makeText(getActivity(), "there is something wrong", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_forgotpass, container, false);
     }
 }

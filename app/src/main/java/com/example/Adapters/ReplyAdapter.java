@@ -1,7 +1,6 @@
-package com.example.Classes;
+package com.example.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.bumptech.glide.Glide;
 
@@ -17,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.Classes.FirebaseServices;
+import com.example.Classes.Profile;
+import com.example.Classes.Reply;
 import com.example.myapplication.Profilepage;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,7 +28,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class  ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> {
     private Context context;

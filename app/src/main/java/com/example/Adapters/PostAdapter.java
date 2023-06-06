@@ -1,8 +1,7 @@
-package com.example.Classes;
+package com.example.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,28 +16,29 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.Classes.FirebaseServices;
+import com.example.Classes.Post;
+import com.example.Classes.Profile;
 import com.example.myapplication.Commentsforpost;
-import com.example.myapplication.Profilepage;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class Postsearchadapter extends RecyclerView.Adapter<Postsearchadapter.MyViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
     Context context;
     private FirebaseServices fbs;
     ArrayList<Post> postArrayList;
-    private ArrayList<Profile> profile;
+    private Profile profile;
     private ArrayList<String> postref;
 
 
-    public Postsearchadapter(Context context, ArrayList<Post> postArrayList,ArrayList<Profile> profile,ArrayList<String> postsref) {
+    public PostAdapter(Context context, ArrayList<Post> postArrayList,Profile profile,ArrayList<String> postsref) {
         this.context = context;
         this.postArrayList = postArrayList;
         this.profile=profile;
@@ -47,14 +47,14 @@ public class Postsearchadapter extends RecyclerView.Adapter<Postsearchadapter.My
 
     @NonNull
     @Override
-    public Postsearchadapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PostAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(context).inflate(R.layout.post,parent,false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostAdapter.MyViewHolder holder,int position) {
 
         Post post=postArrayList.get(position);
         fbs =FirebaseServices.getInstance();
@@ -74,7 +74,7 @@ public class Postsearchadapter extends RecyclerView.Adapter<Postsearchadapter.My
             }
         });
 
-        StorageReference storageRef1= fbs.getStorage().getInstance().getReference().child(profile.get(position).getImage());
+        StorageReference storageRef1= fbs.getStorage().getInstance().getReference().child(profile.getImage());
 
         storageRef1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -92,9 +92,8 @@ public class Postsearchadapter extends RecyclerView.Adapter<Postsearchadapter.My
         holder.comment.setText(""+ post.getComments().size());
         holder.like.setText(""+post.getLikes().size());
         holder.share.setText(""+post.getShare());
-        holder.username.setText(profile.get(position).getName());
-        holder.caption.setText(post.getCaption());
-        holder.like.setGravity(Gravity.CENTER);
+        holder.username.setText(profile.getName());
+        holder.caption.setText(post.getCaption());holder.like.setGravity(Gravity.CENTER);
         holder.like.setGravity(Gravity.RIGHT);
         holder.share.setGravity(Gravity.RIGHT);
         holder.comment.setGravity(Gravity.RIGHT);
@@ -172,15 +171,7 @@ public class Postsearchadapter extends RecyclerView.Adapter<Postsearchadapter.My
 
             }
         });
-        holder.user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity) context;
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Profilepage(post.getUser())).addToBackStack(null).commit();
-            }
-        });
     }
-
 
     @Override
     public int getItemCount() {
