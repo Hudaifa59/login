@@ -129,6 +129,7 @@ public class LoginFragment extends Fragment {
                                     ft.commit();
                                 }
                                 else {
+                                    Toast.makeText(getActivity(), "There is something incorrect", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                             }
