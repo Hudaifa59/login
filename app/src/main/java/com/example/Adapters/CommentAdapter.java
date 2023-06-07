@@ -1,5 +1,6 @@
 package com.example.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.example.Classes.Comment;
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Profile;
 import com.example.Classes.Reply;
+import com.example.Classes.User;
 import com.example.myapplication.Commentsforpost;
 import com.example.myapplication.Profilepage;
 import com.example.myapplication.R;
@@ -40,7 +42,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     ArrayList<Profile> profiles,profilespo;
     ArrayList<Comment> comments;
     ArrayList<String> commentspa,repliespa;
-
+    ArrayList<User> users;
     Commentsforpost commentsforpost;
     ArrayList<Reply> reply;
 
@@ -169,17 +171,29 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         holder.replies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                users=new ArrayList<User>();
                 repliespa=comment.getReply();
                 getreplies(holder.recyclerView);
             }
         });
-        holder.recyclerView.setHasFixedSize(true);
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager((Activity)context));
     }
 
     private void eventonchangelis(RecyclerView recyclerView) {
         if (reply.size()==profilespo.size()) {
-            ReplyAdapter replyAdapter = new ReplyAdapter(context,reply, repliespa,profilespo);
+            ArrayList<Profile> profilefinal =new ArrayList<Profile>();
+            for (int i=0;i< reply.size();i++){
+                boolean n = false;
+                for (int j=0;users.size()>j;j++) {
+                    for (int k = 0; k < profiles.size(); k++) {
+                        if (reply.get(i).getUser().equals(users.get(j).getUser())&&users.get(j).getUsername().equals(profiles.get(k).getName()) && !n) {
+                            profilefinal.add(profiles.get(k));
+                            n = true;
+                        }
+                    }
+                }
+            }
+            ReplyAdapter replyAdapter = new ReplyAdapter(context,reply, repliespa,profilefinal);
             recyclerView.setAdapter(replyAdapter);
         }
     }
@@ -218,6 +232,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                         String userId = doc.getId();
+                        users.add(doc.toObject(User.class));
                         Getprofile(doc.get("profile").toString(),recyclerView);
                     }
                 })
