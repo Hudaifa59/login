@@ -266,11 +266,11 @@ public class Profilepage extends Fragment {
                 followtv.setText("Following");
                 followicn.setImageResource(R.drawable.following);
             }
+            else {
+                followtv.setText("Follow");
+                followicn.setImageResource(R.drawable.follow);
+            }
 
-        }
-        else {
-            followtv.setText("Follow");
-            followicn.setImageResource(R.drawable.follow);
         }
         followtv.setGravity(Gravity.CENTER);
         if (!update) {

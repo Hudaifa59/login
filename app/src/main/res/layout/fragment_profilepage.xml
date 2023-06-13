@@ -144,7 +144,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="Follow"
                 android:textColor="#a020f0" />
         </LinearLayout>
 

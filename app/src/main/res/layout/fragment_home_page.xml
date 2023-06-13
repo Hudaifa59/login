@@ -11,6 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/limittv"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#a020f0"
+            android:gravity="center_horizontal"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/PostsHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.064" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/PostsHome"
             android:layout_width="0dp"
@@ -20,6 +34,7 @@
             android:background="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
@@ -46,6 +61,20 @@
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/followingtv"
+            android:layout_width="229dp"
+            android:layout_height="215dp"
+            android:gravity="center"
+            android:text="Follow people to start seeing the space photos that you like"
+            android:textColor="#a020f0"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/PostsHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.48" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

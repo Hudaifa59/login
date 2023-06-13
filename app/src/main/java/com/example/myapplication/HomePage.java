@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
@@ -18,6 +19,8 @@ import com.example.Classes.User;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,7 @@ public class HomePage extends Fragment {
     ArrayList<String>following;
     FirebaseServices fbs;
     ArrayList<Profile>profiles;
+    TextView tv1,tv2;
     ArrayList<String> postpathforuser;
     ArrayList<Post> postforuser;
 
@@ -90,6 +94,8 @@ public class HomePage extends Fragment {
         profiles=new ArrayList<Profile>();
         postpathforuser=new ArrayList<String> ();
         postforuser=new ArrayList<Post> ();
+        tv1=getView().findViewById(R.id.followingtv);
+        tv2=getView().findViewById(R.id.limittv);
         GetFollowings();
     }
     private void GetFollowings() {
@@ -176,6 +182,20 @@ public class HomePage extends Fragment {
         if (postforuser.size()==profiles.size()) {
             Postsearchadapter postAdapter = new Postsearchadapter(getActivity(), postforuser, profiles, postpathforuser);
             postsfollowing.setAdapter(postAdapter);
+            if (postforuser.size()==0){
+                ViewGroup parentView = (ViewGroup) postsfollowing.getParent();
+                parentView.removeView(postsfollowing);
+                postsfollowing.setVisibility(View.GONE);
+            }
+            else {
+                ViewGroup parentView1 = (ViewGroup) tv1.getParent();
+                parentView1.removeView(tv1);
+                tv1.setVisibility(View.GONE);
+                ViewGroup parentView2 = (ViewGroup) tv2.getParent();
+                parentView2.removeView(tv2);
+                tv2.setVisibility(View.GONE);
+            }
         }
+
     }
 }
