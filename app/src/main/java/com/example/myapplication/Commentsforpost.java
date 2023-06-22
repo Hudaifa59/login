@@ -24,6 +24,7 @@ import com.example.Classes.FirebaseServices;
 import com.example.Classes.Post;
 import com.example.Classes.Profile;
 import com.example.Classes.Reply;
+import com.example.Classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,6 +46,7 @@ public class Commentsforpost extends Fragment {
     private String path;
     String pathcomm;
 
+    ArrayList<User>userArrayList;
     ImageView backbtn;
     FirebaseServices fbs;
     EditText comment;
@@ -259,6 +261,7 @@ public class Commentsforpost extends Fragment {
                 });
     }
     private void GetUser(String email) {
+        userArrayList=new ArrayList<User>();
         fbs.getFire().collection("Users").whereEqualTo("user", email)
                 .get()
                 .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
@@ -271,6 +274,7 @@ public class Commentsforpost extends Fragment {
 
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                         String userId = doc.getId();
+                        userArrayList.add(doc.toObject(User.class));
                         Getprofile(doc.get("profile").toString());
                     }
                 })
@@ -302,7 +306,19 @@ public class Commentsforpost extends Fragment {
 
     private void evenonchange() {
         if (comments.size()==profilespo.size()) {
-            CommentAdapter commentAdapter = new CommentAdapter(getActivity(),comments, profilespo,compath,this);
+            ArrayList<Profile> profilefinal =new ArrayList<Profile>();
+            for (int i=0;i<comments.size();i++){
+                boolean n = false;
+                for (int j=0;userArrayList.size()>j;j++) {
+                    for (int k = 0; k < profilespo.size(); k++) {
+                        if (comments.get(i).getUser().equals(userArrayList.get(j).getUser())&&userArrayList.get(j).getUsername().equals(profilespo.get(k).getName()) && !n) {
+                            profilefinal.add(profilespo.get(k));
+                            n = true;
+                        }
+                    }
+                }
+            }
+            CommentAdapter commentAdapter = new CommentAdapter(getActivity(),comments, profilefinal,compath,this);
             recyclerView.setAdapter(commentAdapter);
         }
     }
