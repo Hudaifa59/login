@@ -33,6 +33,7 @@ public class HomePage extends Fragment {
     RecyclerView postsfollowing;
     ArrayList<String>following;
     FirebaseServices fbs;
+    ArrayList<User> userArraylist;
     ArrayList<Profile>profiles;
     TextView tv1,tv2;
     ArrayList<String> postpathforuser;
@@ -137,6 +138,7 @@ public class HomePage extends Fragment {
 
     }
     private void GetUser(String users) {
+        userArraylist=new ArrayList<User>();
         fbs.getFire().collection("Users").whereEqualTo("user", users)
                 .get()
                 .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
@@ -148,6 +150,7 @@ public class HomePage extends Fragment {
                     for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
                         String userId = doc.getId();
                         User user = doc.toObject(User.class);
+                        userArraylist.add(user);
                         Getprofile(doc.get("profile").toString());
                     }
                 }).addOnFailureListener(e -> {
@@ -180,7 +183,19 @@ public class HomePage extends Fragment {
     }
     private void evenonchange() {
         if (postforuser.size()==profiles.size()) {
-            Postsearchadapter postAdapter = new Postsearchadapter(getActivity(), postforuser, profiles, postpathforuser);
+            ArrayList<Profile> profilefinal =new ArrayList<Profile>();
+            for (int i=0;i<postforuser.size();i++){
+                boolean n = false;
+                for (int j=0;userArraylist.size()>j;j++) {
+                    for (int k = 0; k < profiles.size(); k++) {
+                        if (postforuser.get(i).getUser().equals(userArraylist.get(j).getUser())&&userArraylist.get(j).getUsername().equals(profiles.get(k).getName()) && !n) {
+                            profilefinal.add(profiles.get(k));
+                            n = true;
+                        }
+                    }
+                }
+            }
+            Postsearchadapter postAdapter = new Postsearchadapter(getActivity(), postforuser, profilefinal, postpathforuser);
             postsfollowing.setAdapter(postAdapter);
             if (postforuser.size()==0){
                 ViewGroup parentView = (ViewGroup) postsfollowing.getParent();
