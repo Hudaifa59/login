@@ -138,6 +138,7 @@ public class Commentsforpost extends Fragment {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     comment.setText(""); // Clear the text
+                                    comment.setHint("Your Comment...");
                                     Eventonchangereply(documentReference.getId());
                                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                 }
