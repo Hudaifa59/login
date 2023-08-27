@@ -132,11 +132,8 @@ public class Profilepage extends Fragment {
 
         if (email==null)
             email=fbs.getAuth().getCurrentUser().getEmail();
-
         GetUser(email);
         Recyclerview();
-
-
     }
 
     private void EventChangeListener(ArrayList<String> minipost) {
