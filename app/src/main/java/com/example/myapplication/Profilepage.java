@@ -131,12 +131,7 @@ public class Profilepage extends Fragment {
         postsp=new ArrayList<Post>();
 
         if (email==null)
-            try {
-                fbs.getAuth().getCurrentUser().getEmail();
-                email=fbs.getAuth().getCurrentUser().getEmail();
-            }catch (Exception e){
-                e.getMessage();
-            }
+            email=fbs.getAuth().getCurrentUser().getEmail();
 
         GetUser(email);
         Recyclerview();
