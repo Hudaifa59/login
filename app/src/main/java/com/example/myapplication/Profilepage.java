@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -40,6 +41,7 @@ import java.util.List;
  */
 public class Profilepage extends Fragment {
 
+    ProgressDialog progressDialog;
     LinearLayout followbtn;
     ImageView imgpro,backbtn,followicn;
     TextView postsnum,following,followers,username,nickname,followtv;
@@ -51,7 +53,7 @@ public class Profilepage extends Fragment {
     private Profile profile;
     private String email;
     private FirebaseServices fbs;
-    private TextView signoubtn;
+    private TextView Setting;
     private boolean update=false;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -107,12 +109,16 @@ public class Profilepage extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        signoubtn=getView().findViewById(R.id.Signoutbtn);
-        signoubtn.setOnClickListener(new View.OnClickListener() {
+        progressDialog = new ProgressDialog(getContext()); // 'this' refers to the current context
+        progressDialog.setMessage("Loading..."); // Set a message for the user
+        progressDialog.setCancelable(false); // Set whether the user can cancel the dialog
+
+        progressDialog.show(); // Show the dialog
+        Setting=getView().findViewById(R.id.Settgo);
+        Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fbs.getAuth().signOut();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framMain,new LoginFragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Settings()).addToBackStack(null).commit();
             }
         });
         recyclerViewminipost = getActivity().findViewById(R.id.minipostrv);
@@ -123,8 +129,19 @@ public class Profilepage extends Fragment {
         fbs=FirebaseServices.getInstance();
         minipost=new ArrayList<String>();
         postsp=new ArrayList<Post>();
-        Recyclerview();
+
+        if (email==null)
+            try {
+                fbs.getAuth().getCurrentUser().getEmail();
+                email=fbs.getAuth().getCurrentUser().getEmail();
+            }catch (Exception e){
+                e.getMessage();
+            }
+
         GetUser(email);
+        Recyclerview();
+
+
     }
 
     private void EventChangeListener(ArrayList<String> minipost) {
@@ -181,8 +198,8 @@ public class Profilepage extends Fragment {
                     .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
 
                         if (documentSnapshot.exists()) {
-                                Post post=documentSnapshot.toObject(Post.class);
-                                postsp.add(post);
+                            Post post=documentSnapshot.toObject(Post.class);
+                            postsp.add(post);
                         } else {
                             System.out.println("User document doesn't exist.");
                         }
@@ -282,9 +299,9 @@ public class Profilepage extends Fragment {
                 parentView.removeView(backbtn);
                 backbtn.setVisibility(View.GONE);
             } else {
-                ViewGroup parentView = (ViewGroup) signoubtn.getParent();
-                parentView.removeView(signoubtn);
-                signoubtn.setVisibility(View.GONE);
+                ViewGroup parentView = (ViewGroup) Setting.getParent();
+                parentView.removeView(Setting);
+                Setting.setVisibility(View.GONE);
             }
         }
         postsnum.setText(user.getPost().size()+"");
@@ -295,6 +312,7 @@ public class Profilepage extends Fragment {
         following.setGravity(Gravity.CENTER);
         nickname.setText(profile.getNickname());
         username.setText(profile.getName());
+        progressDialog.dismiss();
         followbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

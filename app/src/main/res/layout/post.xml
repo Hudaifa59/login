@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="@+id/ivpostuser"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivpostuser"
                 android:layout_width="70dp"
                 android:layout_height="59dp"

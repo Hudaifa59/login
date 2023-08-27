@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="@+id/postsprofilenum"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilepic"
             android:layout_width="129dp"
             android:layout_height="121dp"
@@ -157,12 +157,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/Signoutbtn"
+            android:id="@+id/Settgo"
             android:layout_width="71dp"
             android:layout_height="21dp"
             android:layout_marginStart="69dp"
             android:layout_marginTop="16dp"
-            android:text="Sign out"
+            android:text="Settings"
             android:gravity="center"
             android:textColor="#a020f0"
             app:layout_constraintBottom_toTopOf="@+id/profilepic"

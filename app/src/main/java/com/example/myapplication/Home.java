@@ -36,7 +36,11 @@ public class Home extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    int icon;
 
+    public Home(int icon){
+        this.icon=icon;
+    }
     public Home() {
         // Required empty public constructor
     }
@@ -86,27 +90,27 @@ public class Home extends Fragment {
         fbs=FirebaseServices.getInstance();
         fm=getActivity().findViewById(R.id.framehome);
         miniicon = getActivity().findViewById(R.id.navbarhome);
-        if(miniicon.getSelectedItemId()==R.id.homep)getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new HomePage()).commit();
+        if(miniicon.getSelectedItemId()==R.id.homep) getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new HomePage()).commit();
         miniicon.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.homep:
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new HomePage()).commit();
-                    return true;
-                case R.id.uppostic:
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Uploadpost()).commit();
-                    return true;
-                case R.id.profileminip:
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Profilepage(fbs.getAuth().getCurrentUser().getEmail())).commit();
-                    return true;
-                case R.id.searchp:
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Search()).commit();
-                    return true;
-                case R.id.solarsystemp:
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new SolarSystem()).commit();
-                    return true;
-                default:
-                    return false;
-            }
-        });
+                switch (item.getItemId()) {
+                    case R.id.homep:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new HomePage()).commit();
+                        return true;
+                    case R.id.uppostic:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Uploadpost()).commit();
+                        return true;
+                    case R.id.profileminip:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Profilepage(fbs.getAuth().getCurrentUser().getEmail())).commit();
+                        return true;
+                    case R.id.searchp:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new Search()).commit();
+                        return true;
+                    case R.id.solarsystemp:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome, new SolarSystem()).commit();
+                        return true;
+                    default:
+                        return false;
+                }
+            });
     }
 }
