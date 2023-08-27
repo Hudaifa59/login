@@ -52,14 +52,12 @@ public class UserFrag extends Fragment {
     private String pfpath;
     private User us;
     private Bitmap Image;
-    boolean h;
     private Profile pf;
     private FirebaseServices fbs;
     private Button btndone;
     private ImageView imgp;
     private EditText ename,enick,ephone;
     private Spinner gender;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -117,8 +115,8 @@ public class UserFrag extends Fragment {
         fbs=FirebaseServices.getInstance();
         btndone=getView().findViewById(R.id.Done);
         imgp = getView().findViewById(R.id.profileimage);
-        ename = getView().findViewById(R.id.Username);
-        enick = getView().findViewById(R.id.enickname);
+        ename = getView().findViewById(R.id.Usernameed);
+        enick = getView().findViewById(R.id.enicknameed);
         ephone = getView().findViewById(R.id.ephone);
         gender = getView().findViewById(R.id.gendersp);
         imgp.setOnClickListener(new View.OnClickListener() {

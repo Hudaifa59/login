@@ -22,7 +22,7 @@ import com.example.Main.LoginFragment;
 public class Settings extends Fragment {
 
     FirebaseServices fbs;
-    TextView signoubtn;
+    TextView signoubtn,editprofile;
     ImageView back;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,6 +75,7 @@ public class Settings extends Fragment {
     public void onStart() {
         super.onStart();
         signoubtn=getView().findViewById(R.id.Signout);
+        editprofile=getView().findViewById(R.id.Editprofile);
         fbs=FirebaseServices.getInstance();
         signoubtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +97,12 @@ public class Settings extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Profilepage()).commit();
+            }
+        });
+        editprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framehome,new Editprofile()).addToBackStack(null).commit();
             }
         });
     }

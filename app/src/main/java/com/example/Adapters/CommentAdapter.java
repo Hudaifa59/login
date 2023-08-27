@@ -123,7 +123,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                     DocumentReference userRef = fbs.getFire().collection("Comments").document(commentspa.get(position));
                     userRef.get()
                             .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
-
                                 if (documentSnapshot.exists()) {
                                     ArrayList<String> likes=comments.get(position).getLike();
                                     likes.add(fbs.getAuth().getCurrentUser().getEmail());
